@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="dataProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <property name="locations">
+	    	<list>
+	    		<value>classpath:poscode.properties</value>
+	    	</list>
+	    </property>
+	    <property name="ignoreResourceNotFound" value="true" />
+	    <property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${driverClassName}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+	</bean>
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="commonUtil" class="util.CommonUtil">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+	<bean id="donorDao" class="daoImpl.DonorDaoImpl" >
+		<property name="commonUtil" ref="commonUtil" />
+	</bean>
+	<bean id="articleDao" class="daoImpl.ArticleDaoImpl" >
+		<property name="commonUtil" ref="commonUtil" />
+	</bean>
+	<bean id="commentDao" class="daoImpl.CommentDaoImpl" >
+		<property name="commonUtil" ref="commonUtil" />
+	</bean>
+	<bean id="userDao" class="daoImpl.UserDaoImpl">
+		<property name="commonUtil" ref="commonUtil" />
+	</bean>
+	<bean id="articleCategoriesDao" class="daoImpl.ArticleCategoriesDaoImpl">
+		<property name="commonUtil" ref="commonUtil" />
+		<property name="articleDaoImpl" ref="articleDao" />
+		<property name="articleTagsDao" ref="articleTagsDaoImpl" />
+	</bean>
+	<bean id="articleTagsDaoImpl" class="daoImpl.ArticleTagsDaoImpl">
+		<property name="commonUtil" ref="commonUtil" />
+	</bean>
+	<bean id="valueKeys" class="util.ValueKeys" scope="singleton"/>
+	<bean id="article" class="models.Article" scope="prototype"/>
+	<bean id="comment" class="models.Comment" scope="prototype"/>
+	<bean id="user" class="models.User"/>
+    <bean id="genericWithImage" class="models.GenericWithImage" scope="session"/>
+	<bean id="userParameters" class="models.UserParameters"/>
+	<bean id="articleNotifications" class="models.ArticleNotifications" scope="session"/>
+	<bean id="defaultScope" class="util.OpChainBasedScope"/>	
+
+	<!-- Configure the multipart resolver -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="100000" />
+		<property name="uploadTempDir" ref="uploadDirResource" />
+	</bean>
+
+	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
+		<constructor-arg>
+			<value>C:/poscode_REPO</value>
+		</constructor-arg>
+	</bean>
+
+	
+	
+
+</beans>

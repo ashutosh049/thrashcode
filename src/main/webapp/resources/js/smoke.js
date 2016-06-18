@@ -61,7 +61,7 @@
         // Mensaje de error para strongPass Madium
         textSPassMedium  : 'Minimum 6 characters and a number',
         // Mensaje de error para strongPass Strong
-        textSPassStrong  : 'Minimum 6 characters a number and a capital',
+        textSPassStrong  : 'Upto 8 to 20 characters long.Combination of small,capital,number and a special character',
         textUrl          : 'Please enter a valid url',
         textTel          : 'Please enter a valid phone number',
         textColor        : 'Please enter a valid hex color',
@@ -239,7 +239,7 @@
             textPass = languaje.textSPassMedium;
             break;
             case ('strong'):// Debe contener al menos 6 caracteres, un numero y una mayúscula
-            strongPassRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{6,}$/;
+            strongPassRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*._]).{8,20}$/;
             textPass = languaje.textSPassStrong;
             break;
             default:// Debe contener al menos 4 caracteres

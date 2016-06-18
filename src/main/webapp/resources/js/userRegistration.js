@@ -1,19 +1,16 @@
 $(document).ready(function() {
 	
 	$('#registerUserBtn').click(function() {
-		  if ($('#new_user_registration_form').smkValidate()) {
-		    $('#new_user_registration_form')[0].submit();
-		  }
+	  if ($('#new_user_registration_form').smkValidate()) {
+		  if( $.smkEqualPass('#pass1', '#pass2') ){
+			  $('#new_user_registration_form')[0].submit();
+		    }
+	  }
 	});
 	
 	$('#new_user_registration_form').on('load', function () {
 		$('#user_fname').focus();
 	});
-	
-	/*Event.observe(window, 'load', function() {
-		  $("#user_fname").focus();
-	 });*/
-	
 	
 	
 	

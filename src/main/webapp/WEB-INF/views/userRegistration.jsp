@@ -51,79 +51,6 @@
 </head>
 
 <body>
-<!-- FB SDK -->
-<!-- <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '827243510736589',
-      xfbml      : true,
-      version    : 'v2.5'
-    });
-    FB.getLoginStatus(function(response) {
-    	  if (response.status === 'connected') {
-    	    console.log('Logged in.');
-    	  }
-    	  else {
-    	    FB.login();
-    	  }
-    	});
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script> -->
-<!-- FB SDK -->
-
-<div id="fb-root"></div>
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '827243510736589',
-      xfbml      : true,
-      version    : 'v2.5',
-   	  status     : true, 
-      cookie     : true,
-      oauth      : true,
-    });
-    FB.api('/me', {fields: 'last_name'}, function(response) {
-  	  alert("last name :"+response.name);
-  	  console.log(response.name);
-  	});
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-  
-  
-  
-</script>
-
-
-<!-- FB login -->
-
-<!-- <script>
-	(function(d, s, id) {
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id))
-			return;
-		js = d.createElement(s);
-		js.id = id;
-		js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5&appId=827243510736589";
-		fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-</script>
- --><!-- FB login -->
-
 	<div id="wrapper">
 
 		<!-- Navigation -->
@@ -166,7 +93,12 @@
 							<div class="form-group">
 								<label class="col-lg-3 control-label">Email:</label>
 								<div class="col-lg-8">
-									<input name="user_email" class="form-control"	type="email" data-smk-msg="Required field" required="true" />
+									<input name="user_email"
+										   id="new_user_email" 
+									       class="form-control" 
+									       type="email" 
+									       ng-model="email" 
+									       required="true" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -178,13 +110,13 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label">Password:</label>
 								<div class="col-md-8">
-									<input name="user_pwd" id="pass1" class="form-control" type="password" data-smk-msg="Required field" data-smk-strongPass="medium" required="true" />
+									<input name="user_pwd" id="pass1" class="form-control" type="password" data-smk-strongPass="strong" required="true" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label">Confirm password:</label>
 								<div class="col-md-8">
-									<input name="user_pwd" id="pass2" class="form-control" type="password" data-smk-msg="Required field" data-smk-strongPass="medium" required="true" />
+									<input name="user_pwd" id="pass2" class="form-control" type="password"  data-smk-strongPass="strong" required="true" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -210,13 +142,6 @@
 		</div>
 	</div>
 
-<!-- FB Like -->
-<div
-  class="fb-like"
-  data-share="true"
-  data-width="450"
-  data-show-faces="true">
-</div>
 	<!--##########################################|js Files|########################################################## -->
 	<script src="resources/bower_components/jquery/dist/jquery.min.js"></script>
 	<script	src="resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

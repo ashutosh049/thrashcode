@@ -5,9 +5,9 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
-	<http use-expressions="false" auto-config="true">
+	<!-- <http use-expressions="false" auto-config="true">
 	    <intercept-url pattern="/resources/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<intercept-url pattern="/_userprofile_**" access="ROLE_USER,ROLE_ADMIN" />
+		<intercept-url pattern="/articlesCreate**" access="ROLE_USER,ROLE_ADMIN" />
 		<intercept-url pattern="/_repositories_**" access="ROLE_USER,ROLE_ADMIN" />
 		<form-login/>
 	</http>
@@ -19,6 +19,6 @@
 				<user name="admin" password="admin" authorities="ROLE_ADMIN" />
 			</user-service>
 		</authentication-provider>
-	</authentication-manager>
+	</authentication-manager> -->
 
 </beans:beans>

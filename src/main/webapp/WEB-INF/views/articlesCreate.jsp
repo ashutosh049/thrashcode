@@ -13,7 +13,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>articlesCreate</title>
+<title>Post Article</title>
 
 	
 	<!--##########################################|Css Files|########################################################## -->	
@@ -57,7 +57,11 @@
 			<br /> <br /> <br />
 
 			<div class="panel-body">
-				<form:form method="get" action="publishArticleByForm" htmlEscape="true" modelAttribute="articleModal">
+					<form:form method="post" 
+								action="publishArticleByForm" 
+								htmlEscape="true" 
+								modelAttribute="articleModal" 
+								enctype="multipart/form-data">
 					<div class="row">
 						<div class="col-lg-6">
 
@@ -97,7 +101,6 @@
 					<form:textarea id="publishArticle_data" name="publishArticle_data" path="artcle_Data"></form:textarea>
 					<ckeditor:replace replace="publishArticle_data" basePath="resources/ckeditor/" />
 					<br />
-<!-- 					<button id="publishArticle_Btn" type="button" class="btn btn-success">Publish</button> -->
 					<button id="publishArticleForm_Btn" type="submit" class="btn btn-success">Publish</button>
 				</form:form>
 			</div>

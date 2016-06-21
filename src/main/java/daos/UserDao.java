@@ -10,14 +10,13 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import models.ArticleNotifications;
 import models.User;
-import util.CstmDataAccessException;
 
 public interface UserDao {
 
 	public int ifUserExists(String argUserId);
 	public int createUser(User argUser) throws DataAccessException, IOException;
 	public int updateUser(User argUser) throws FileNotFoundException, IOException, SQLException;
-	public User getUserById(String argUserId) throws CstmDataAccessException, IOException;
+	public User getUserById(String argUserId) throws IOException;
 	public List<User> getAllUser();
 	public List<ArticleNotifications> getUserArticleNotifications(String argUserId);
 	public CommonsMultipartFile getUserImgData(String argUserId);

@@ -29,13 +29,12 @@ public class ArticleDaoImpl implements ArticleDao {
 
 	
 	@Override
-	public List<Article> getArticles(String tag) {
+	public List<Article> getArticlesByTag(String argArticleTag) {
 
 		String query = "SELECT artcl_id, artcl_date, artcl_owner_name, artcl_tags, artcl_owner_id, artcle_title,"
 				     + " artcle_brf_desc,  artcle_hits ,artcle_type, artcle_lastUpdateDate "
 				      + "FROM poscode.articles " 
-				      + "WHERE artcl_tags LIKE \"%" + tag + "%\" "
-//				      + "OR artcl_tags LIKE \"%" + tag + "%\" "
+				      + "WHERE artcl_tags LIKE \"%" + argArticleTag + "%\" "
 				      + " ORDER BY artcl_date desc";
 		
 		List<Article> articles = commonUtil.getJdbcTemplate().query(
@@ -200,6 +199,41 @@ public class ArticleDaoImpl implements ArticleDao {
 					}
 		});
 		return artclTags;
+	
+	}
+
+
+
+	@Override
+	public List<Article> getArticlesByOwnerId(String argUserId) {
+
+
+		String query = "SELECT artcl_id, artcl_date, artcl_owner_name, artcl_tags, artcl_owner_id, artcle_title,"
+				     + " artcle_brf_desc,  artcle_hits ,artcle_type, artcle_lastUpdateDate "
+				      + "FROM poscode.articles " 
+				      + "WHERE artcl_owner_id = \"" + argUserId + "\" "
+				      + " ORDER BY artcl_date desc";
+		
+		List<Article> articles = commonUtil.getJdbcTemplate().query(
+				query,
+		        new RowMapper<Article>() {
+		            public Article mapRow(ResultSet rs, int rowNum) throws SQLException {
+		            	Article article = new Article();
+		            	article.setArtcl_id(rs.getString("artcl_id"));
+		            	article.setArtcl_date(rs.getDate("artcl_date"));
+		            	article.setArtcl_owner_name(rs.getString("artcl_owner_name"));
+		            	article.setArtcl_tags(Arrays.asList(rs.getString("artcl_tags").split(",")));
+		            	article.setArtcl_owner_id(rs.getString("artcl_owner_id"));
+		            	article.setArtcle_title(rs.getString("artcle_title"));
+		            	article.setArtcle_brf_desc(rs.getString("artcle_brf_desc"));
+		            	article.setArtcle_hits(rs.getInt("artcle_hits"));
+		            	article.setArtcle_type(rs.getString("artcle_type"));
+		            	article.setArtcle_lastUpdateDate(rs.getDate("artcle_lastUpdateDate"));
+		                return article;
+		            }
+		        });
+		       		
+		return articles;
 	
 	}
 }

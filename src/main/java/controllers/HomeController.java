@@ -62,7 +62,7 @@ public class HomeController{
 		}
 		
 		List<Article> articleList = new LinkedList<Article>();
-		articleList = articleDao.getArticles("");
+		articleList = articleDao.getArticlesByTag("");
 		List<GenericWithImage> articleListWithOwnerImg = null;
 		
 		if(articleList!=null && articleList.size()>0){

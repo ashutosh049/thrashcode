@@ -1,13 +1,9 @@
 package daoImpl;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.sql.Blob;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -17,20 +13,12 @@ import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.support.AbstractLobCreatingPreparedStatementCallback;
-import org.springframework.jdbc.core.support.SqlLobValue;
-import org.springframework.jdbc.support.lob.DefaultLobHandler;
-import org.springframework.jdbc.support.lob.LobHandler;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.jdbc.support.lob.LobCreator;
-import org.springframework.jdbc.support.lob.DefaultLobHandler;
 
 import daos.UserDao;
 import models.ArticleNotifications;
 import models.User;
 import util.CommonUtil;
-import util.CstmDataAccessException;
-import util.CstmIOException;
 
 public class UserDaoImpl implements UserDao {
 
@@ -59,8 +47,6 @@ public class UserDaoImpl implements UserDao {
 	
 	@Override
 	public User getUserById(String argUserId) throws IOException {
-
-		try {
 			User user = commonUtil.getJdbcTemplate()
 					.queryForObject(
 							"select user_id, user_pwd, user_fname, user_lname, user_email, user_img"
@@ -87,9 +73,6 @@ public class UserDaoImpl implements UserDao {
 									}
 							});
 			return user;
-		} catch (CstmDataAccessException accessException) {
-			return null;
-		}
 
 	}
 

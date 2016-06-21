@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import daoImpl.UserDaoImpl;
 import models.User;
 import models.UserParameters;
-import util.CstmDataAccessException;
 
 @Scope("session")
 @RestController
@@ -39,7 +38,7 @@ public class LoginController {
 	
 	@RequestMapping(value = "/handleAppLogin", method = RequestMethod.POST)
 	public String login(Locale locale, Model model, @RequestParam("user_id") String user_id,
-			@RequestParam("user_pwd") String user_pwd,HttpSession session) throws CstmDataAccessException, IOException {
+			@RequestParam("user_pwd") String user_pwd,HttpSession session) throws  IOException {
 
 		User newUser=null;
 		

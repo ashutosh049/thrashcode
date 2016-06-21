@@ -129,7 +129,7 @@
 																</div>
 																<div class='[ animbrand ]'>
 																	<a class='[ navbar-brand ][ animate ]'
-																		href='renderArticleFile?arctl_id=${article.artcl_id}"'
+																		href='renderArticleFile?arctl_id=${article.artcl_id}'
 																		id='artcle_list_title'>${article.artcle_title}</a>
 																</div>
 															</strong>

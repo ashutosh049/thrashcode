@@ -30,7 +30,7 @@ import models.Article;
 import models.Comment;
 import models.GenericWithImage;
 
-public class CommonUtil extends AbstractWorker{
+public class CommonUtil{
 
 	
 	@Value("${chars}") private  String chars;

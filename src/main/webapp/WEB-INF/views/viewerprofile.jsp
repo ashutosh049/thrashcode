@@ -93,7 +93,13 @@
 						</div>
 					</div>
 			</div>
-<!-- 		</div> -->
+			
+			
+			<div id="articlesBy"><h4>Articles by ${viewUser_fName}....</h4></div>
+			<input type="hidden" value="${viewUser_userId}" id="viewUser_userId">
+			<div class="col-md-12"  id="bootarticleDisplayArea">
+				<br>
+	        </div>
 	</div>
 
 
@@ -107,8 +113,9 @@
 	<script src="resources/js/scripts.min.js"></script>
 	<script src="resources/js/smoke.js"></script>
 	<script src="resources/js/smoke.min.js"></script>
-	<script src="resources/js/bootsnipp_navBar.js"></script>
+<!-- 	<script src="resources/js/bootsnipp_navBar.js"></script> -->
 	<script src="resources/js/common.js"></script>
+	<script src="resources/js/viewerProfile.js"></script>
 	<!--##########################################|js Files|########################################################## -->
 
 

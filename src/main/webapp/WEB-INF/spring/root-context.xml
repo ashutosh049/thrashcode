@@ -45,28 +45,35 @@
 	<bean id="articleTagsDaoImpl" class="daoImpl.ArticleTagsDaoImpl">
 		<property name="commonUtil" ref="commonUtil" />
 	</bean>
-	<bean id="valueKeys" class="util.ValueKeys" scope="singleton"/>
-	<bean id="article" class="models.Article" scope="prototype"/>
-	<bean id="comment" class="models.Comment" scope="prototype"/>
-	<bean id="user" class="models.User"/>
-    <bean id="genericWithImage" class="models.GenericWithImage" scope="session"/>
-	<bean id="userParameters" class="models.UserParameters"/>
-	<bean id="articleNotifications" class="models.ArticleNotifications" scope="session"/>
-	<bean id="defaultScope" class="util.OpChainBasedScope"/>	
+	
 
+
+	<bean id="scopeConfig" class="handlers.ScopeConfig"/>
+	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="customscope">
+                    <ref bean="scopeConfig" />
+                </entry>
+            </map>
+        </property>
+    </bean>
+	<bean id="article" class="models.Article" scope="customscope"/>
+	<bean id="comment" class="models.Comment" scope="customscope"/>
+	<bean id="user" class="models.User" scope="customscope"/>
+    <bean id="genericWithImage" class="models.GenericWithImage" scope="customscope"/>
+	<bean id="userParameters" class="models.UserParameters" scope="customscope"/>
+	<bean id="articleNotifications" class="models.ArticleNotifications" scope="customscope"/>
+	
 	<!-- Configure the multipart resolver -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="100000" />
 		<property name="uploadTempDir" ref="uploadDirResource" />
 	</bean>
-
 	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
 		<constructor-arg>
 			<value>C:/poscode_REPO</value>
 		</constructor-arg>
 	</bean>
-
 	
-	
-
 </beans>

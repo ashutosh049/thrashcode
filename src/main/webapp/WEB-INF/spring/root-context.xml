@@ -6,7 +6,7 @@
 	<bean id="dataProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 	    <property name="locations">
 	    	<list>
-	    		<value>classpath:poscode.properties</value>
+	    		<value>classpath:thrashcode.properties</value>
 	    	</list>
 	    </property>
 	    <property name="ignoreResourceNotFound" value="true" />
@@ -67,12 +67,12 @@
 	
 	<!-- Configure the multipart resolver -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="100000" />
+		<property name="maxUploadSize" value="500000" />
 		<property name="uploadTempDir" ref="uploadDirResource" />
 	</bean>
 	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
 		<constructor-arg>
-			<value>C:/poscode_REPO</value>
+			<value>${poscode_root_dir}/temp_upload</value>
 		</constructor-arg>
 	</bean>
 	

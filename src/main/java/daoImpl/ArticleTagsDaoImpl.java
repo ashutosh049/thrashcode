@@ -23,7 +23,7 @@ public class ArticleTagsDaoImpl implements ArticleTagsDao{
 	public List<ArtclTags> getArtclTagByArtclCatId(String argArtclCatId) {
 		List<ArtclTags> artclTags = commonUtil.getJdbcTemplate().query(
 				"SELECT artcl_tag_id, artcl_tag_name, artcl_tag_description "
-						   + "FROM poscode.artcl_tags "
+						   + "FROM artcl_tags "
 						   + "WHERE artcl_cat_id ='"+argArtclCatId+"'", 
 				new RowMapper<ArtclTags>(){
 					public ArtclTags mapRow(ResultSet rs, int rowNum) throws SQLException {

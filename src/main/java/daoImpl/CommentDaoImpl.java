@@ -29,7 +29,7 @@ public class CommentDaoImpl implements CommentDao {
 	public List<Comment> getComments(String argArtclId) {
 
 		String query = "SELECT arctl_id, cmnt_id, user_id, cmt_date,user_fname, user_lname, cmt_data,cmt_filePath, cmt_file, cmt_likes , cmt_dislikes "
-				      + "FROM poscode.article_comments " 
+				      + "FROM article_comments " 
 				      + "WHERE arctl_id=\""+argArtclId+"\""
 				      + "ORDER BY cmt_date;";
 
@@ -61,7 +61,7 @@ public class CommentDaoImpl implements CommentDao {
 	@Override
 	public int setComment(Comment argComment) {
 		return commonUtil.getJdbcTemplate().update(
-		        "insert into poscode.article_comments "+
+		        "insert into article_comments "+
 		       "(arctl_id, cmnt_id, user_id, user_fname, user_lname, cmt_date, cmt_filePath, cmt_data)"+
 		       " values (?, ?, ?, ?, ?, ?, ?, ?)",
 		        argComment.getArctl_id(), argComment.getCmnt_id(),argComment.getUser_id(),
@@ -73,7 +73,7 @@ public class CommentDaoImpl implements CommentDao {
 
 	@Override
 	public int likeUserComment(String argArtclId,String argCmtId) {
-		return commonUtil.getJdbcTemplate().update("update poscode.article_comments "
+		return commonUtil.getJdbcTemplate().update("update article_comments "
 				+ "SET cmt_likes = cmt_likes+1 "
 				+ "WHERE arctl_id= ? AND cmnt_id = ?", argArtclId, argCmtId);
 	}
@@ -82,7 +82,7 @@ public class CommentDaoImpl implements CommentDao {
 
 	@Override
 	public int dislikeUserComment(String argArtclId ,String argCmtId) {
-		return commonUtil.getJdbcTemplate().update("update poscode.article_comments "
+		return commonUtil.getJdbcTemplate().update("update article_comments "
 				+ "SET cmt_dislikes = cmt_dislikes+1 "
 				+ "WHERE arctl_id= ? AND cmnt_id = ?", argArtclId, argCmtId);
 	}
@@ -92,7 +92,7 @@ public class CommentDaoImpl implements CommentDao {
 	@Override
 	public int setCommentNotifications(String argArtclId, Comment argComment) {
 		return commonUtil.getJdbcTemplate().update(
-		        "insert into poscode.article_notifications "+
+		        "insert into article_notifications "+
 		       "(arctl_id, cmnt_id, user_id,"
 		     + " cmnt_by_user_fname, cmnt_by_user_lname, cmt_date,"
 		     + " read_status,notification_type,notification_data)"+
@@ -109,7 +109,7 @@ public class CommentDaoImpl implements CommentDao {
 	}
 	
 	/*public String getArticleUserName(String argArticleId){
-		String sql= "SELECT artcl_owner_name from poscode.articles WHERE artcl_id = ?";
+		String sql= "SELECT artcl_owner_name from articles WHERE artcl_id = ?";
 		String userName = (String)commonUtil.getJdbcTemplate().queryForObject(
 				sql, new Object[] { argArticleId }, String.class);
 		return userName;

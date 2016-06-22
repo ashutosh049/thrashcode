@@ -33,7 +33,7 @@ public class ArticleDaoImpl implements ArticleDao {
 
 		String query = "SELECT artcl_id, artcl_date, artcl_owner_name, artcl_tags, artcl_owner_id, artcle_title,"
 				     + " artcle_brf_desc,  artcle_hits ,artcle_type, artcle_lastUpdateDate "
-				      + "FROM poscode.articles " 
+				      + "FROM articles " 
 				      + "WHERE artcl_tags LIKE \"%" + argArticleTag + "%\" "
 				      + " ORDER BY artcl_date desc";
 		
@@ -66,12 +66,12 @@ public class ArticleDaoImpl implements ArticleDao {
 		
 		if(argUserID != null){
 			query = "SELECT artcl_id, artcl_date, artcl_owner_name, artcl_tags, artcl_owner_id, artcle_title, artcle_brf_desc, artcle_hits, artcle_type "
-				      + "FROM poscode.articles " 
+				      + "FROM articles " 
 				      + "WHERE artcl_owner_id = \"" + argUserID + "\"";
 		
 		}else{
 			query = "SELECT artcl_id, artcl_date, artcl_owner_name, artcl_tags, artcl_owner_id, artcle_title, artcle_brf_desc, artcle_hits, artcle_type "
-				      + "FROM poscode.articles "; 
+				      + "FROM articles "; 
 		}
 		 
 		List<Article> articles = commonUtil.getJdbcTemplate().query(
@@ -102,7 +102,7 @@ public class ArticleDaoImpl implements ArticleDao {
 	@Override 
 	public int publishArticle(Article argArticle) {
 			return commonUtil.getJdbcTemplate().update(
-			        "insert into poscode.articles "+
+			        "insert into articles "+
 			       "(artcl_id, artcl_date, artcl_owner_name, artcl_tags, artcl_owner_id, artcle_title, artcle_brf_desc, artcle_Data,artcle_filePath, artcle_lastUpdateDate, artcle_hits, artcle_type, artcl_cat_id)"+
 			       " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 			       argArticle.getArtcl_id(),
@@ -127,7 +127,7 @@ public class ArticleDaoImpl implements ArticleDao {
 		Article article = commonUtil.getJdbcTemplate().queryForObject(
 			        "select artcl_id, artcl_date, artcl_owner_name, artcl_tags, artcl_owner_id, artcle_title, artcle_brf_desc,"
 			        + " artcle_filePath, artcle_lastUpdateDate, artcle_hits ,artcle_type "
-			        + " from poscode.articles where artcl_id = ?",
+			        + " from articles where artcl_id = ?",
 			        new Object[]{argArtclId},
 			        new RowMapper<Article>() {
 			            public Article mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -153,7 +153,7 @@ public class ArticleDaoImpl implements ArticleDao {
 
 	@Override
 	public int updateArticleHits(String argArtclId) {
-		return commonUtil.getJdbcTemplate().update("update poscode.articles "
+		return commonUtil.getJdbcTemplate().update("update articles "
 				+ "SET artcle_hits = artcle_hits+1 "
 				+ "WHERE artcl_id = ? ", argArtclId);
 		}
@@ -178,7 +178,7 @@ public class ArticleDaoImpl implements ArticleDao {
 		List<Article> artclTags = commonUtil.getJdbcTemplate().query(
 				"SELECT"
          		+ " artcl_id, artcl_date, artcl_owner_name, artcl_tags, artcl_owner_id, artcle_title, artcle_brf_desc, artcle_Data, artcle_filePath, artcle_lastUpdateDate, artcle_hits, artcle_type"
-				+ " FROM poscode.articles"
+				+ " FROM articles"
 				+ " WHERE artcl_cat_id ='"+argArtclcatId+"'", 
 				new RowMapper<Article>(){
 					public Article mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -210,7 +210,7 @@ public class ArticleDaoImpl implements ArticleDao {
 
 		String query = "SELECT artcl_id, artcl_date, artcl_owner_name, artcl_tags, artcl_owner_id, artcle_title,"
 				     + " artcle_brf_desc,  artcle_hits ,artcle_type, artcle_lastUpdateDate "
-				      + "FROM poscode.articles " 
+				      + "FROM articles " 
 				      + "WHERE artcl_owner_id = \"" + argUserId + "\" "
 				      + " ORDER BY artcl_date desc";
 		

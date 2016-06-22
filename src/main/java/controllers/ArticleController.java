@@ -73,10 +73,10 @@ public class ArticleController {
 	GenericWithImage genericWithImage;
 	@Autowired
 	ArticleCategoriesDaoImpl articleCategoriesDao;
-	@Value("${cmt_filePath}")
-	private String cmt_filePath;
-	@Value("${poscode_root_dir}")
-	private String poscode_root_dir;
+	
+	@Value("${poscode_root_dir}") private String poscode_root_dir;
+	@Value("${article_root_dir}") private String article_root_dir;
+	@Value("${comment_root_dir}") private String comment_root_dir;
 
 	private List<Article> articleList = null;
 	private List<GenericWithImage> genericWithImageList = null;
@@ -313,7 +313,7 @@ public class ArticleController {
 		int cmtNo = commentDao.getComments(arctl_id).size() + 1;
 		String cmtId = arctl_id + "_cmnt_" + cmtNo;
 		// String cmt_filePath =
-		// "C:/REBB_REPO/REBB_REPO_ARCTL/REBB_REPO_ARCTL_CONTS/" + arctl_id;
+		// C:/poscode_REPO/articles/artcl_4/Comment
 
 		comment.setArctl_id(arctl_id);
 		comment.setCmnt_id(cmtId);
@@ -321,12 +321,13 @@ public class ArticleController {
 		comment.setUser_fname(user.getUser_fname());
 		comment.setUser_id(user.getUser_id());
 		comment.setUser_lname(user.getUser_lname());
-		comment.setCmt_filePath(cmt_filePath + arctl_id);
+		String comment_file_path=poscode_root_dir+article_root_dir+arctl_id+"/"+comment_root_dir+"";
+		comment.setCmt_filePath(comment_file_path);
 		String cmt_dataDB = (argCmtData.length() >= 30 ? argCmtData.substring(0, 30) : argCmtData);
 		comment.setCmt_data(cmt_dataDB);
 
 		if (commentDao.setComment(comment) > 0) {
-			commonUtil.createDataFile(arctl_id, cmtId, argCmtData, cmt_filePath + arctl_id, cmtId + ".txt");
+			commonUtil.createDataFile(arctl_id, cmtId, argCmtData, comment_file_path , cmtId + ".txt");
 			commentDao.setCommentNotifications(arctl_id, comment);
 			return "success";
 		} else
@@ -460,7 +461,7 @@ public class ArticleController {
 		article.setArtcl_id(artcl_id);
 		article.setArtcl_date(new Date());
 		article.setArtcl_owner_name(user.getUser_fname());
-		String artcl_filePath = poscode_root_dir;
+		String artcl_filePath = poscode_root_dir+article_root_dir+artcl_id+"/";
 		String artcl_fileName = artcl_id + ".txt";
 
 		List<String> artcl_tags = new LinkedList<String>();

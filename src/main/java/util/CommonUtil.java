@@ -62,7 +62,7 @@ public class CommonUtil{
 	    }
 
 	public String generateDonorId(String argDonorName) {
-		String query = "SELECT COUNT(*) FROM poscode.details_donor";
+		String query = "SELECT COUNT(*) FROM details_donor";
 		int donorCount = jdbcTemplate.queryForInt(query);
 		String donorId = "DNR_" + donorCount + "_" + argDonorName.substring(0, 5);
 		logger.info("method : generateDonorId with argDonorName = ["+argDonorName+"], and donorId = ["+donorId+"].");
@@ -80,20 +80,21 @@ public class CommonUtil{
 		return passsword;
 	}
 
-	public boolean createDataFile(String argArtclId, String argCmtId, String argCmtData, String argCmt_filePath, String argCmt_fileName) throws IOException {
+	public boolean createDataFile(String argArtclId, String argCmtId, String argCmtData, String argFilePath, String argFileName) throws IOException {
 
-		File file = new File(argCmt_filePath + "/" + argCmt_fileName);
+		File file = new File(argFilePath+"/"+argFileName);
 		logger.info("\n\n----"
 				+ "@mthd : createDataFile()"+"\n"
 				+ "@arg :argArtclId :"+argArtclId+"\n"
 				+ "@arg :argCmtId :"+argCmtId+"\n"
 				+ "@arg :argCmtData :"+argCmtData+"\n"
-				+ "@arg :argCmt_filePath :"+argCmt_filePath+"\n"
-				+ "@arg :argCmt_fileName :"+argCmt_fileName+"\n");
+				+ "@arg :argCmt_filePath :"+argFilePath+"\n"
+				+ "@arg :argCmt_fileName :"+argFileName+"\n");
+		
 		if (!file.exists()) {
-			File filePath = new File(argCmt_filePath);
-			if (filePath.mkdir()) {
-				System.out.println("Directory is created!");
+			if (new File(argFilePath).mkdirs()) {
+				System.out.println("["+argFilePath+"] Directory created!");
+				file = new File(argFilePath+"/"+argFileName);
 			} else {
 				System.out.println("Failed to create directory. Already exists....!");
 			}
@@ -233,13 +234,13 @@ public class CommonUtil{
 		}
 	}
 	
-	public String createTempDirectory() throws IOException{
+/*	public String createTempDirectory() throws IOException{
 		logger.info("\n\n----"
 				+ "@mthd : createTempDirectory()");
 		Path predefinedPath = Paths.get("C:/poscode_REPO");
-		Path path = Files.createTempDirectory(predefinedPath,"poscode.");
+		Path path = Files.createTempDirectory(predefinedPath,"");
 		return path.toString();
-	}
+	}*/
 	
 	public File copyUploadedFileToTemp(File argImagFile, String tempPath) throws IOException{
 		logger.info("\n\n----"

@@ -46,7 +46,7 @@ public class ArticleCategoriesDaoImpl implements ArticleCategoriesDao{
 	@Override
 	public List<ArticleCategories> getAllArticleCategories() {
 		String query = "SELECT artcl_cat_id, artcl_cat_name "
-			         + "FROM poscode.article_categories ";
+			         + "FROM article_categories ";
 	
 	List<ArticleCategories> articleCategories = commonUtil.getJdbcTemplate().query(
 			query,

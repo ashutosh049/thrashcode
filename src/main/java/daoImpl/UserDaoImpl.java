@@ -31,7 +31,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public int createUser(User argUser) throws DataAccessException, IOException {
 		return commonUtil.getJdbcTemplate()
-				.update("INSERT INTO poscode.user (user_id, user_pwd, user_fname, user_lname, user_email, user_img)"
+				.update("INSERT INTO user (user_id, user_pwd, user_fname, user_lname, user_email, user_img)"
 						+ " values (?, ?, ?, ?, ?, ?)", argUser.getUser_id(), argUser.getUser_pwd(),
 				argUser.getUser_fname(), argUser.getUser_lname(), argUser.getUser_email(),
 				argUser.getUser_img().getInputStream());
@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public int ifUserExists(String argUserId) {
-		String sql ="SELECT count(*) FROM poscode.user WHERE user_id=?";
+		String sql ="SELECT count(*) FROM user WHERE user_id=?";
 		int i = commonUtil.getJdbcTemplate().queryForObject( sql, 
 				new Object[] { argUserId }, Integer.class);
 		return i;
@@ -50,7 +50,7 @@ public class UserDaoImpl implements UserDao {
 			User user = commonUtil.getJdbcTemplate()
 					.queryForObject(
 							"select user_id, user_pwd, user_fname, user_lname, user_email, user_img"
-									+ " from poscode.user where user_id = ?",
+									+ " from user where user_id = ?",
 							new Object[] { argUserId }, new RowMapper<User>() {
 								public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 									User user = new User();
@@ -84,7 +84,7 @@ public class UserDaoImpl implements UserDao {
 	public List<ArticleNotifications> getUserArticleNotifications(String argUserId) {
 
 		String sql = "SELECT arctl_id, cmnt_id, user_id, cmnt_by_user_fname, cmnt_by_user_lname, cmt_date, read_status, notification_type,notification_data"
-				+ " FROM poscode.article_notifications anot " + " INNER JOIN poscode.articles a "
+				+ " FROM article_notifications anot " + " INNER JOIN articles a "
 				+ " ON anot.arctl_id = a.artcl_id AND a.artcl_owner_id = ?";
 
 		List<ArticleNotifications> notificationsList = commonUtil.getJdbcTemplate().query(sql,
@@ -113,7 +113,7 @@ public class UserDaoImpl implements UserDao {
 		final User argUser = u;
 
 		/*
-		 * final String sql = "update poscode.user " + "SET user_pwd=?, " +
+		 * final String sql = "update user " + "SET user_pwd=?, " +
 		 * "user_fname=?, " + "user_lname=?, " + "user_email=?, " +
 		 * "user_img=? " + "WHERE user_id= ?";
 		 */
@@ -122,7 +122,7 @@ public class UserDaoImpl implements UserDao {
 		// LobHandler lobHandler = new DefaultLobHandler();
 
 		return commonUtil.getJdbcTemplate()
-				.update("update poscode.user " + "SET user_pwd=?, " + "user_fname=?, " + "user_lname=?, "
+				.update("update user " + "SET user_pwd=?, " + "user_fname=?, " + "user_lname=?, "
 						+ "user_email=?, " + "user_img=? " + "WHERE user_id= ?", argUser.getUser_pwd(),
 				argUser.getUser_fname(), argUser.getUser_lname(), argUser.getUser_email(),
 				argUser.getUser_img().getInputStream(), argUser.getUser_id());
@@ -137,7 +137,7 @@ public class UserDaoImpl implements UserDao {
 
 	/*
 	 * public String getArticleUserName(String argArticleId){ String sql=
-	 * "SELECT artcl_owner_name from poscode.articles WHERE artcl_id = ?"; String
+	 * "SELECT artcl_owner_name from articles WHERE artcl_id = ?"; String
 	 * userName = (String)commonUtil.getJdbcTemplate().queryForObject( sql, new
 	 * Object[] { argArticleId }, String.class); return userName; }
 	 */
@@ -162,12 +162,12 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public CommonsMultipartFile getUserImgData(String argUserId) {
 		// byte[] rs = commonUtil.getJdbcTemplate().queryForObject("SELECT
-		// user_img FROM poscode.user where user_id='"+argUserId+"' ",
+		// user_img FROM user where user_id='"+argUserId+"' ",
 		// byte[].class);
 		// return new CommonsMultipartFile(getFileItemFromInputStream(null));
 
 		CommonsMultipartFile cmpf = commonUtil.getJdbcTemplate().queryForObject(
-				"SELECT user_img FROM poscode.user where user_id=?", new Object[] { argUserId },
+				"SELECT user_img FROM user where user_id=?", new Object[] { argUserId },
 				new RowMapper<CommonsMultipartFile>() {
 					public CommonsMultipartFile mapRow(ResultSet rs, int rowNum) throws SQLException {
 						CommonsMultipartFile user = null;

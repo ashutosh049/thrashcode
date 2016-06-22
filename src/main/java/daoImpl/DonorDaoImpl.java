@@ -54,14 +54,14 @@ public class DonorDaoImpl implements DonorDao {
 
 		String donorId = commonUtil.generateDonorId(donor.getDnr_name());
 		String donorPassword = commonUtil.generateDonorPassword(donor.getDnr_name(), 22, 8);
-		String query1 = "insert into poscode.details_donor values('" + donorId + "','" + donor.getDnr_name() + "','"
+		String query1 = "insert into details_donor values('" + donorId + "','" + donor.getDnr_name() + "','"
 				+ donor.getDnr_bgroup() + "','" + donor.getDnr_address_l1() + "','" + donor.getDnr_address_l2() + "','"
 				+ donor.getDnr_city() + "','" + donor.getDnr_phone_home() + "','" + donor.getDnr_phone_work() + "','"
 				+ donor.getDnr_phone_mobile() + "','" + donor.getDnr_email() + "','" + donor.getDnr_age() + "','"
 				+ donor.getDnr_sex() + "','" + donor.getDnr_state() + "','" + new java.sql.Date(d1.getTime()) + "','"
 				+ new java.sql.Date(d2.getTime()) + "')";
 
-		String query2 = "INSERT INTO poscode.credentials values('" + donorId + "','" + donorPassword + "')";
+		String query2 = "INSERT INTO credentials values('" + donorId + "','" + donorPassword + "')";
 
 		int q1 = commonUtil.getJdbcTemplate().update(query1);
 		int q2 = commonUtil.getJdbcTemplate().update(query2);

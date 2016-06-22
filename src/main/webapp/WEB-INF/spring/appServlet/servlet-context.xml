@@ -22,7 +22,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="controllers" />
-	<context:property-placeholder location="classpath:poscode.properties" />	
+	<context:property-placeholder location="classpath:thrashcode.properties" />	
 	
 	<!-- <beans:bean id="posCodeCustomHandler" class="handlers.PosCodeCustomHandler">
 		<beans:property name="user" ref="user"/>

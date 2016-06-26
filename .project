@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>thrashcodeB1.0.1</name>
+	<name>thrashcode</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -32,6 +32,11 @@
 		</buildCommand>
 		<buildCommand>
 			<name>org.eclipse.m2e.core.maven2Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.jst.j2ee.ejb.annotations.xdoclet.xdocletbuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>

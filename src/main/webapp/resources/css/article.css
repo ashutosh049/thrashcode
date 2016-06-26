@@ -6,6 +6,67 @@
 	width: 800px;
 	margin-top: 10px;
 }
+.artcl_header_div{
+	color: #ee8b2d;
+	border-bottom: 2px solid;
+	width: 100%
+}
+.article-title{
+	color: #ee8b2d;
+	border-bottom: none;
+	}
+	
+.artcl_hits_div{
+	float: right;
+	margin-top: -57px;
+	margin-right: 198px;
+	font-size: 27px;
+}	
+.artcl_hits_positive,.artcl_hits_positive:hover{
+	color: #5cb85c;
+}
+.artcl_hits_negetive,.artcl_hits_negetive:hover{
+	color: #d9534f;
+}
+.artcl_hits_positive_none,.artcl_hits_negetive_none{
+	color: #eee;
+}
+.artcl_hits_positive_none:hover{
+	color: #5cb85c;
+	cursor: pointer;
+}
+.artcl_hits_negetive_none:hover{
+	color: #d9534f;
+	cursor: pointer;
+}
+
+.artcl_attributes_div{
+	color : rgba(98, 91, 102, 0.62);
+	float :left;
+}
+.artcl_attributes_div a{
+	color: rgba(98, 91, 102, 0.62);
+	text-decoration: none;	
+}
+.label-warning {
+	color : #fff;
+	background-color: rgba(98, 91, 102, 0.62);
+}
+
+.authr_atr_1{
+	margin-left: 55px;
+	margin-top: -45px;
+}
+.authr_atr_2{
+	margin-left: 55px;
+	margin-top: -10px;
+}
+.author_name{
+	font: bold;
+	color: rgba(98, 91, 102, 0.62);
+}
+
+
 
 #commentData {
 	background-color: white;

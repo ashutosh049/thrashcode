@@ -10,7 +10,7 @@
 		</layout>
 	</appender>
 	<appender name="fileAppender" class="org.apache.log4j.FileAppender">
-       <param name="File" value="C:/poscode_REPO/poscode.log" />
+       <param name="File" value="${poscode_root_dir}${poscode_log_file_name}" />
        <layout class="org.apache.log4j.PatternLayout">
           <param name="ConversionPattern" value="%-7p %d [%t] %c %x - %m%n"/>
        </layout>

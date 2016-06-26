@@ -4,21 +4,21 @@ import java.util.Date;
 import java.util.List;
 
 public class Article {
-
 	private String artcl_id;
 	private String artcl_cat_id;
-	private Date artcl_date;
-	private String artcl_owner_name;
-	private List<String> artcl_tags;
-	private String artcl_owner_id;
-	private String artcle_title;
-	private String artcle_brf_desc;
-	private String artcle_Data;
-	private String artcle_filePath;
-	private Date artcle_lastUpdateDate;
-	private int artcle_hits;
-	private String artcle_type;
-	
+	private String artcl_owner_id; 
+	private String artcl_status; 
+	private String artcl_title; 
+	private String artcl_brf_desc; 
+	private Date artcl_create_date; 
+	private Date artcl_mod_date; 
+	private List<String> artcl_tags; 
+	private String artcl_data;
+	private String artcl_filePath; 
+	private String artcl_type; 
+	private int artcl_visits; 
+	private int artcl_hits_positive; 
+	private int artcl_hits_negetive;
 	/**
 	 * @return the artcl_id
 	 */
@@ -44,18 +44,6 @@ public class Article {
 		this.artcl_cat_id = artcl_cat_id;
 	}
 	/**
-	 * @return the artcl_date
-	 */
-	public Date getArtcl_date() {
-		return artcl_date;
-	}
-	/**
-	 * @param artcl_date the artcl_date to set
-	 */
-	public void setArtcl_date(Date artcl_date) {
-		this.artcl_date = artcl_date;
-	}
-	/**
 	 * @return the artcl_owner_id
 	 */
 	public String getArtcl_owner_id() {
@@ -68,88 +56,64 @@ public class Article {
 		this.artcl_owner_id = artcl_owner_id;
 	}
 	/**
-	 * @return the artcle_title
+	 * @return the artcl_status
 	 */
-	public String getArtcle_title() {
-		return artcle_title;
+	public String getArtcl_status() {
+		return artcl_status;
 	}
 	/**
-	 * @param artcle_title the artcle_title to set
+	 * @param artcl_status the artcl_status to set
 	 */
-	public void setArtcle_title(String artcle_title) {
-		this.artcle_title = artcle_title;
+	public void setArtcl_status(String artcl_status) {
+		this.artcl_status = artcl_status;
 	}
 	/**
-	 * @return the artcle_brf_desc
+	 * @return the artcl_title
 	 */
-	public String getArtcle_brf_desc() {
-		return artcle_brf_desc;
+	public String getArtcl_title() {
+		return artcl_title;
 	}
 	/**
-	 * @param artcle_brf_desc the artcle_brf_desc to set
+	 * @param artcl_title the artcl_title to set
 	 */
-	public void setArtcle_brf_desc(String artcle_brf_desc) {
-		this.artcle_brf_desc = artcle_brf_desc;
+	public void setArtcl_title(String artcl_title) {
+		this.artcl_title = artcl_title;
 	}
 	/**
-	 * @return the artcle_Data
+	 * @return the artcl_brf_desc
 	 */
-	public String getArtcle_Data() {
-		return artcle_Data;
+	public String getArtcl_brf_desc() {
+		return artcl_brf_desc;
 	}
 	/**
-	 * @param artcle_Data the artcle_Data to set
+	 * @param artcl_brf_desc the artcl_brf_desc to set
 	 */
-	public void setArtcle_Data(String artcle_Data) {
-		this.artcle_Data = artcle_Data;
+	public void setArtcl_brf_desc(String artcl_brf_desc) {
+		this.artcl_brf_desc = artcl_brf_desc;
 	}
 	/**
-	 * @return the artcle_filePath
+	 * @return the artcl_create_date
 	 */
-	public String getArtcle_filePath() {
-		return artcle_filePath;
+	public Date getArtcl_create_date() {
+		return artcl_create_date;
 	}
 	/**
-	 * @param artcle_filePath the artcle_filePath to set
+	 * @param artcl_create_date the artcl_create_date to set
 	 */
-	public void setArtcle_filePath(String artcle_filePath) {
-		this.artcle_filePath = artcle_filePath;
+	public void setArtcl_create_date(Date artcl_create_date) {
+		this.artcl_create_date = artcl_create_date;
 	}
 	/**
-	 * @return the artcle_lastUpdateDate
+	 * @return the artcl_mod_date
 	 */
-	public Date getArtcle_lastUpdateDate() {
-		return artcle_lastUpdateDate;
+	public Date getArtcl_mod_date() {
+		return artcl_mod_date;
 	}
 	/**
-	 * @param artcle_lastUpdateDate the artcle_lastUpdateDate to set
+	 * @param artcl_mod_date the artcl_mod_date to set
 	 */
-	public void setArtcle_lastUpdateDate(Date artcle_lastUpdateDate) {
-		this.artcle_lastUpdateDate = artcle_lastUpdateDate;
-	}
-	/**
-	 * @return the artcle_hits
-	 */
-	public int getArtcle_hits() {
-		return artcle_hits;
-	}
-	/**
-	 * @param artcle_hits the artcle_hits to set
-	 */
-	public void setArtcle_hits(int artcle_hits) {
-		this.artcle_hits = artcle_hits;
-	}
-	/**
-	 * @return the artcl_owner_name
-	 */
-	public String getArtcl_owner_name() {
-		return artcl_owner_name;
-	}
-	/**
-	 * @param artcl_owner_name the artcl_owner_name to set
-	 */
-	public void setArtcl_owner_name(String artcl_owner_name) {
-		this.artcl_owner_name = artcl_owner_name;
+	public void setArtcl_mod_date(Date artcl_mod_date) {
+		this.artcl_mod_date = artcl_mod_date;
 	}
 	/**
 	 * @return the artcl_tags
@@ -164,81 +128,77 @@ public class Article {
 		this.artcl_tags = artcl_tags;
 	}
 	/**
-	 * @return the artcle_type
+	 * @return the artcl_Data
 	 */
-	public String getArtcle_type() {
-		return artcle_type;
+	public String getArtcl_Data() {
+		return artcl_data;
 	}
 	/**
-	 * @param artcle_type the artcle_type to set
+	 * @param artcl_Data the artcl_Data to set
 	 */
-	public void setArtcle_type(String artcle_type) {
-		this.artcle_type = artcle_type;
+	public void setArtcl_Data(String artcl_data) {
+		this.artcl_data = artcl_data;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * @return the artcl_filePath
 	 */
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Article [artcl_id=");
-		builder.append(artcl_id);
-		builder.append(", artcl_date=");
-		builder.append(artcl_date);
-		builder.append(", artcl_owner_name=");
-		builder.append(artcl_owner_name);
-		builder.append(", artcl_tags=");
-		builder.append(artcl_tags);
-		builder.append(", artcl_owner_id=");
-		builder.append(artcl_owner_id);
-		builder.append(", artcle_title=");
-		builder.append(artcle_title);
-		builder.append(", artcle_brf_desc=");
-		builder.append(artcle_brf_desc);
-		builder.append(", artcle_Data=");
-		builder.append(artcle_Data);
-		builder.append(", artcle_filePath=");
-		builder.append(artcle_filePath);
-		builder.append(", artcle_lastUpdateDate=");
-		builder.append(artcle_lastUpdateDate);
-		builder.append(", artcle_hits=");
-		builder.append(artcle_hits);
-		builder.append(", artcle_type=");
-		builder.append(artcle_type);
-		builder.append(", getArtcl_id()=");
-		builder.append(getArtcl_id());
-		builder.append(", getArtcl_date()=");
-		builder.append(getArtcl_date());
-		builder.append(", getArtcl_owner_id()=");
-		builder.append(getArtcl_owner_id());
-		builder.append(", getArtcle_title()=");
-		builder.append(getArtcle_title());
-		builder.append(", getArtcle_brf_desc()=");
-		builder.append(getArtcle_brf_desc());
-		builder.append(", getArtcle_Data()=");
-		builder.append(getArtcle_Data());
-		builder.append(", getArtcle_filePath()=");
-		builder.append(getArtcle_filePath());
-		builder.append(", getArtcle_lastUpdateDate()=");
-		builder.append(getArtcle_lastUpdateDate());
-		builder.append(", getArtcle_hits()=");
-		builder.append(getArtcle_hits());
-		builder.append(", getArtcl_owner_name()=");
-		builder.append(getArtcl_owner_name());
-		builder.append(", getArtcl_tags()=");
-		builder.append(getArtcl_tags());
-		builder.append(", getArtcle_type()=");
-		builder.append(getArtcle_type());
-		builder.append(", getClass()=");
-		builder.append(getClass());
-		builder.append(", hashCode()=");
-		builder.append(hashCode());
-		builder.append(", toString()=");
-		builder.append(super.toString());
-		builder.append("]");
-		return builder.toString();
+	public String getArtcl_filePath() {
+		return artcl_filePath;
+	}
+	/**
+	 * @param artcl_filePath the artcl_filePath to set
+	 */
+	public void setArtcl_filePath(String artcl_filePath) {
+		this.artcl_filePath = artcl_filePath;
+	}
+	/**
+	 * @return the artcl_type
+	 */
+	public String getArtcl_type() {
+		return artcl_type;
+	}
+	/**
+	 * @param artcl_type the artcl_type to set
+	 */
+	public void setArtcl_type(String artcl_type) {
+		this.artcl_type = artcl_type;
+	}
+	/**
+	 * @return the artcl_visits
+	 */
+	public int getArtcl_visits() {
+		return artcl_visits;
+	}
+	/**
+	 * @param artcl_visits the artcl_visits to set
+	 */
+	public void setArtcl_visits(int artcl_visits) {
+		this.artcl_visits = artcl_visits;
+	}
+	/**
+	 * @return the artcl_hits_positive
+	 */
+	public int getArtcl_hits_positive() {
+		return artcl_hits_positive;
+	}
+	/**
+	 * @param artcl_hits_positive the artcl_hits_positive to set
+	 */
+	public void setArtcl_hits_positive(int artcl_hits_positive) {
+		this.artcl_hits_positive = artcl_hits_positive;
+	}
+	/**
+	 * @return the artcl_hits_negetive
+	 */
+	public int getArtcl_hits_negetive() {
+		return artcl_hits_negetive;
+	}
+	/**
+	 * @param artcl_hits_negetive the artcl_hits_negetive to set
+	 */
+	public void setArtcl_hits_negetive(int artcl_hits_negetive) {
+		this.artcl_hits_negetive = artcl_hits_negetive;
 	}
 	
-	
-	
+		
 }

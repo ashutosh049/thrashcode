@@ -24,8 +24,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import daoImpl.ArticleCategoriesDaoImpl;
 import daoImpl.ArticleDaoImpl;
+import daoImpl.CommentDaoImpl;
 import daoImpl.UserDaoImpl;
 import models.Article;
+import models.ArticleRenderList;
 import models.GenericWithImage;
 import models.User;
 import models.UserParameters;
@@ -45,6 +47,7 @@ public class HomeController{
 	@Autowired CommonUtil commonUtil;
 	@Autowired ArticleCategoriesDaoImpl articleCategoriesDao;
 	@Autowired ArticleDaoImpl articleDao;
+	@Autowired CommentDaoImpl commentDao;
 	
 	@RequestMapping(value = { "/", "/index"}, method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model) throws IOException {
@@ -65,10 +68,19 @@ public class HomeController{
 		articleList = articleDao.getArticlesByTag("");
 		List<GenericWithImage> articleListWithOwnerImg = null;
 		
-		if(articleList!=null && articleList.size()>0){
-			articleListWithOwnerImg = commonUtil.bundleArticleToGenericWithImg(articleList);
+		List<ArticleRenderList> articleRenderLists = new LinkedList<ArticleRenderList>();
+		
+		for (Article article : articleList) {
+			ArticleRenderList render = CommonUtil.adaptArticleToRenderList(article, 
+					userDao.getUserById(article.getArtcl_owner_id()).getUser_fname(), 
+					commentDao.getComments(article.getArtcl_id()).size());
+			articleRenderLists.add(render);
+		}
+		
+		if(articleRenderLists!=null && articleRenderLists.size()>0){
+			articleListWithOwnerImg = commonUtil.bundleObjectToGenericWithImg(articleRenderLists);
 			for (GenericWithImage genericList : articleListWithOwnerImg) {
-				CommonsMultipartFile commonsMultipartFile = userDao.getUserImgData(((Article) genericList.getClassData()).getArtcl_owner_id());
+				CommonsMultipartFile commonsMultipartFile = userDao.getUserImgData(((ArticleRenderList) genericList.getClassData()).getArticle().getArtcl_owner_id());
 				MultipartFile multipartFile = commonsMultipartFile;
 				byte[] bytes = IOUtils.toByteArray(multipartFile.getInputStream());
 				genericList.setImgData(commonsMultipartFile);

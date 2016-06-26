@@ -3,20 +3,6 @@
 	<div class="testimonial_caroussal" style="margin-top: 70px;">
 		<div class="container content">
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-				<!-- Indicators -->
-				<%-- <ol class="carousel-indicators">
-					<c:forEach items="${articleListWithOwnerImg}" var="genericdata" varStatus="articleListWithOwnerImgIndex">
-						<c:choose>
-							<c:when test="${articleListWithOwnerImgIndex.index==0}">
-								<li data-target="#carousel-example-generic" data-slide-to="${articleListWithOwnerImgIndex.index}" class="active"></li>
-							</c:when>
-							<c:otherwise>
-								<li data-target="#carousel-example-generic" data-slide-to="${articleListWithOwnerImgIndex.index}"></li>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-				</ol> --%>
-				<!-- Wrapper for slides -->
 				<div class="carousel-inner">
 				<c:forEach items="${articleListWithOwnerImg}" var="genericdata" varStatus="articleListWithOwnerImgIndex">
 					<c:choose>
@@ -36,12 +22,12 @@
 											<div class="col-md-10 col-sm-10 col-xs-12">
 												<div class="caption">
 													<p class="text-info lead adjust2">
-														${genericdata.classData.artcle_title}
+														${genericdata.classData.article.artcl_title}
 													</p>
 													<p class="fa fa-user"> </p>
 														<small>
 <%-- 															<cite title="Source Title"> --%>
-																&nbsp;${genericdata.classData.artcl_owner_name}&nbsp;&nbsp;
+																&nbsp;${genericdata.classData.author}&nbsp;&nbsp;
 																&nbsp;&nbsp;&nbsp;&nbsp; 
 <%-- 															</cite> --%>
 														</small>
@@ -50,7 +36,7 @@
 													<blockquote class="adjust2">
 														<small>
 															<cite title="Source Title">
-																${genericdata.classData.artcle_brf_desc}
+																${genericdata.classData.article.artcl_brf_desc}
 															</cite>
 														</small>
 													</blockquote>
@@ -61,9 +47,7 @@
 								</div>
 							</div>
 				</c:forEach>
-				
 				</div>
-				<!-- Controls -->
 				<a class="left carousel-control" href="#carousel-example-generic" data-slide="prev"> 
 					<span class="glyphicon glyphicon-chevron-left"></span>
 				</a> 

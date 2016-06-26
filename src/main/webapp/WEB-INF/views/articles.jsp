@@ -67,9 +67,9 @@
 					<c:forEach items="${userArticles}" var="article" varStatus="article_count">
 						<div class="col-lg-4 ">
 							<div class="panel panel-primary readArticle" artcl_id="${article.artcl_id}">
-								<div class="panel-heading">${article.artcle_title}</div>
+								<div class="panel-heading">${article.artcl_title}</div>
 								<div class="panel-body">
-									<p>${article.artcle_brf_desc}</p>
+									<p>${article.artcl_brf_desc}</p>
 								</div>
 								<div class="panel-footer">posted on : ${article.artcl_date}</div>
 							</div>

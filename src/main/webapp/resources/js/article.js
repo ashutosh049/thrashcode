@@ -27,22 +27,13 @@ $(document).ready(function() {
 				var panelColorCount = 1;	
 				
 					$.each(data, function(key,articleList) { 
-						
-						console.log(articleList.artcl_id);
-						console.log(articleList.artcl_date);
-						console.log(articleList.artcl_owner_name);
-						console.log(articleList.artcl_tags);
-						console.log(articleList.artcl_owner_id);
-						console.log(articleList.artcle_title);
-						console.log(articleList.artcle_brf_desc);
-	
 						var  artcl_id= "";
 						var  artcl_date= "";
 						var  artcl_owner_name= "";
 						var  artcl_tags= "";
 						var  artcl_owner_id= "";
-						var  artcle_title= "";
-						var  artcle_brf_desc= "";
+						var  artcl_title= "";
+						var  artcl_brf_desc= "";
 						
 						
 						artcl_id= articleList.artcl_id;
@@ -50,8 +41,8 @@ $(document).ready(function() {
 						artcl_owner_name= articleList.artcl_owner_name;
 						artcl_tags= articleList.artcl_tags;
 						artcl_owner_id= articleList.artcl_owner_id;
-						artcle_title= articleList.artcle_title;
-						artcle_brf_desc= articleList.artcle_brf_desc;
+						artcl_title= articleList.artcl_title;
+						artcl_brf_desc= articleList.artcl_brf_desc;
 
 						if(panelColorCount%2==0){
 							panelColor = "panel-primary";
@@ -71,11 +62,11 @@ $(document).ready(function() {
 						
 						
 						var indvArticleDivs = "<div class='col-lg-4' >"+
-												"<div class='panel "+panelColor+" readArticle' artcl_id='"+artcl_id+"' artcle_title='"+artcle_title+"'>"+
-												"<div class='panel-heading'>"+artcle_title+
+												"<div class='panel "+panelColor+" readArticle' artcl_id='"+artcl_id+"' artcl_title='"+artcl_title+"'>"+
+												"<div class='panel-heading'>"+artcl_title+
 												"</div>"+
 												"<div class='panel-body'>"+
-												"<p>"+artcle_brf_desc+"</p>"+
+												"<p>"+artcl_brf_desc+"</p>"+
 												"</div>"+
 												"<div class='panel-footer'>"+artcl_tags+"</ br> | posted on :"+artcl_date+""+
 												"</div>"+
@@ -202,22 +193,13 @@ $(document).ready(function() {
 				var panelColorCount = 1;	
 				
 					$.each(data, function(key,articleList) { 
-						
-						console.log(articleList.artcl_id);
-						console.log(articleList.artcl_date);
-						console.log(articleList.artcl_owner_name);
-						console.log(articleList.artcl_tags);
-						console.log(articleList.artcl_owner_id);
-						console.log(articleList.artcle_title);
-						console.log(articleList.artcle_brf_desc);
-	
 						var  artcl_id= "";
 						var  artcl_date= "";
 						var  artcl_owner_name= "";
 						var  artcl_tags= "";
 						var  artcl_owner_id= "";
-						var  artcle_title= "";
-						var  artcle_brf_desc= "";
+						var  artcl_title= "";
+						var  artcl_brf_desc= "";
 						
 						
 						artcl_id= articleList.artcl_id;
@@ -225,8 +207,8 @@ $(document).ready(function() {
 						artcl_owner_name= articleList.artcl_owner_name;
 						artcl_tags= articleList.artcl_tags;
 						artcl_owner_id= articleList.artcl_owner_id;
-						artcle_title= articleList.artcle_title;
-						artcle_brf_desc= articleList.artcle_brf_desc;
+						artcl_title= articleList.artcl_title;
+						artcl_brf_desc= articleList.artcl_brf_desc;
 
 						if(panelColorCount%2==0){
 							panelColor = "panel-primary";
@@ -246,11 +228,11 @@ $(document).ready(function() {
 						
 						
 						var indvArticleDivs = "<div class='col-lg-4' >"+
-												"<div class='panel "+panelColor+" readArticle' artcl_id='"+artcl_id+"' artcle_title='"+artcle_title+"'>"+
-												"<div class='panel-heading'>"+artcle_title+
+												"<div class='panel "+panelColor+" readArticle' artcl_id='"+artcl_id+"' artcl_title='"+artcl_title+"'>"+
+												"<div class='panel-heading'>"+artcl_title+
 												"</div>"+
 												"<div class='panel-body'>"+
-												"<p>"+artcle_brf_desc+"</p>"+
+												"<p>"+artcl_brf_desc+"</p>"+
 												"</div>"+
 												"<div class='panel-footer'>"+artcl_tags+"</ br> | posted on :"+artcl_date+""+
 												"</div>"+
@@ -272,18 +254,53 @@ $(document).ready(function() {
 	});
 	/* ##################################| fetchBootArticlesForm |######################################################################## */
 
+	$('.artcl_hits_positive_none').click(function(){
+		var arctl_id=$('#arctl_id').val();
+		var loggedInUserId = $('#loggedInUserId').val();
+		
+		if(loggedInUserId==null || loggedInUserId==""){
+			$("#loginModal").modal('show');
+		}else{
+
+		$.ajax({
+			type:'POST',
+			async: false,
+			url  : "hitArticle?arctl_id="+arctl_id+"&hitType=artcl_hit_positive",
+			type : "POST",
+			success : function(response) {
+				if(response.trim()=='SUCCESS'){
+					window.location.reload();
+				}
+			},
+			error : function(xhr, status, error) {
+				alert("xhr :"+xhr+"\nstatus :"+status+"\nerror :"+error);
+			}
+		});
+	}
+		});
+	$('.artcl_hits_negetive_none').click(function(){
+		var arctl_id=$('#arctl_id').val();
+		var loggedInUserId = $('#loggedInUserId').val();
+		
+		if(loggedInUserId==null || loggedInUserId==""){
+			$("#loginModal").modal('show');
+		}else{
+		$.ajax({
+			type:'POST',
+			async: false,
+			url  : "hitArticle?arctl_id="+arctl_id+"&hitType=artcl_hit_negetive",
+			type : "POST",
+			success : function(response) {
+				if(response.trim()=='SUCCESS'){
+					window.location.reload();
+				}
+			},
+			error : function(xhr, status, error) {
+				alert("xhr :"+xhr+"\nstatus :"+status+"\nerror :"+error);
+			}
+		});
+	 }
+	});
+
+	
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-

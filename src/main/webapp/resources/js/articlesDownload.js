@@ -1,5 +1,5 @@
 function demoFromHTML() {
-	var publishArticle_title  = $('#artcle_title').val();
+	var publishArticle_title  = $('#artcl_title').val();
 	var pdf = new jsPDF('p', 'pt', 'letter');
     // source can be HTML-formatted string, or a reference
     // to an actual DOM element from which the text will be scraped.

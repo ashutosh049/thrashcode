@@ -45,6 +45,9 @@
 	<bean id="articleTagsDaoImpl" class="daoImpl.ArticleTagsDaoImpl">
 		<property name="commonUtil" ref="commonUtil" />
 	</bean>
+	<bean id="userActivityDaoImpl" class="daoImpl.UserActivityDaoImpl">
+		<property name="commonUtil" ref="commonUtil" />
+	</bean>
 	
 
 
@@ -64,6 +67,7 @@
     <bean id="genericWithImage" class="models.GenericWithImage" scope="customscope"/>
 	<bean id="userParameters" class="models.UserParameters" scope="customscope"/>
 	<bean id="articleNotifications" class="models.ArticleNotifications" scope="customscope"/>
+	<bean id="userActivity" class="models.UserActivity" scope="customscope"/>
 	
 	<!-- Configure the multipart resolver -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

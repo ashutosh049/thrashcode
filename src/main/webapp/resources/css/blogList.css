@@ -55,3 +55,29 @@ a:hover {
 	padding-bottom: 15px;
 	padding-top: 0px;
 	}
+.article-title{
+	color: #ee8b2d;
+	}
+.artcl_hits_positive{
+	color: #5cb85c;
+}
+.artcl_hits_negetive{
+	color: #d9534f;
+}
+/* .artcl_hits_positive:hover{
+	color: #eee;
+	cursor: pointer;
+}
+.artcl_hits_negetive:hover{
+	color: #eee;
+	cursor: pointer;
+} */
+.artcl_visits{
+	font-size: 30px;
+	padding-top: 38px;
+	margin-right: 28px;
+}
+.artcl_visits:hover{
+	color: #eee;
+	cursor: pointer;
+}

@@ -4,18 +4,26 @@ public class ArticleCategories {
 
 	private String artcl_cat_id;
 	private String artcl_cat_name;
-	
+	private int artcl_cat_index;
+
 	public ArticleCategories() {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	public ArticleCategories(String artcl_cat_id, String artcl_cat_name) {
+	public ArticleCategories(String artcl_cat_id, String artcl_cat_name, int artcl_cat_index) {
 		super();
 		this.artcl_cat_id = artcl_cat_id;
 		this.artcl_cat_name = artcl_cat_name;
+		this.artcl_cat_index = artcl_cat_index;
 	}
 
+	public int getArtcl_cat_index() {
+		return artcl_cat_index;
+	}
+
+	public void setArtcl_cat_index(int artcl_cat_index) {
+		this.artcl_cat_index = artcl_cat_index;
+	}
 
 	/**
 	 * @return the artcl_cat_id
@@ -25,7 +33,8 @@ public class ArticleCategories {
 	}
 
 	/**
-	 * @param artcl_cat_id the artcl_cat_id to set
+	 * @param artcl_cat_id
+	 *            the artcl_cat_id to set
 	 */
 	public void setArtcl_cat_id(String artcl_cat_id) {
 		this.artcl_cat_id = artcl_cat_id;
@@ -39,14 +48,16 @@ public class ArticleCategories {
 	}
 
 	/**
-	 * @param artcl_cat_name the artcl_cat_name to set
+	 * @param artcl_cat_name
+	 *            the artcl_cat_name to set
 	 */
 	public void setArtcl_cat_name(String artcl_cat_name) {
 		this.artcl_cat_name = artcl_cat_name;
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -69,6 +80,5 @@ public class ArticleCategories {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
+
 }

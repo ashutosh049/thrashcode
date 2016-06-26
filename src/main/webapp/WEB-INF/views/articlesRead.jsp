@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>${arctl_obj.artcle_title}</title>
+<title>${arctl_obj.artcl_title}</title>
 
 <!--##################################################################################################################################### -->
 <!--##################################################################################################################################### -->
@@ -61,21 +61,87 @@
 		
 		<!-- ####################################|Body|############################################################################ -->
 		<div id="page-wrapper" id="bootarticleDisplayArea">
-			<!-- #######################|Article Title|############################################################################ -->
-				<div class="row">
-					<div class="" style="float: left;">
-						<h1 class="page-header">${arctl_obj.artcle_title}</h1>
-						<input type="hidden" id="artcle_title" value="${arctl_obj.artcle_title}"/>
+		<!-- #######################|Article Title|############################################################################ -->
+						
+
+			<div class="row">
+				<div class="artcl_header_div" style="float: left;">
+					<input type="hidden" id="artcl_title" value="${arctl_obj.artcl_title}" />
+					<h1 class="page-header article-title">${arctl_obj.artcl_title}
+					</h1>
+					<div class="authr_img">
+						<img src="data:${author_contenttype};base64,${author_image}" 
+										style="
+												height: 50px; 
+												width: 50px;
+												padding-left: 0px;
+												padding-right: 0px;
+												padding-top: 0px;
+												padding-bottom: 2px;" 
+										alt="#" 
+										class="avatar img-thumbnail" />
+						<p class="authr_atr_1">
+							<span class="author_name">${author_fName} ${author_lName}</span>
+							<span class="arctl_mod_date">, ${arctl_mod_date}</span>
+						</p> 
+						<p class="authr_atr_2">
+							<span class="author_name">viewed ${arctl_obj.artcl_visits} times</span>
+						</p>
 					</div>
-					<div style="float: right;">
-						<button class="btn btn-info" type="button" id="artclDwnload" onclick="javascript:demoFromHTML();">download</button>
+					<div class="artcl_attributes_div">
+						<p>
+							<c:forEach items="${arctl_obj.artcl_tags}" var="tag">
+								<span class="label label-warning">${tag}</span>
+							</c:forEach>
+							<a href="#" class="artcl-dwnload"><span class="glyphicon glyphicon-download-alt"> download pdf version</span></a>
+					</div>
+					<div class="artcl_hits_div">
+							<div>
+								<c:choose>
+									<c:when test="${userActivity.actvty_id=='ACTVTY_ARTCL_LIKE'}">
+										<a class="stat-item glyphicon glyphicon-chevron-up artcl_hits_positive" clickable="false">
+											${arctl_obj.artcl_hits_positive}
+										</a>
+									</c:when>
+									<c:otherwise>
+										<a class="stat-item glyphicon glyphicon-chevron-up artcl_hits_positive_none" clickable="true">
+											${arctl_obj.artcl_hits_positive}
+										</a>
+									</c:otherwise>
+								</c:choose>
+							</div>
+							<div>
+								<c:choose>
+									<c:when test="${userActivity.actvty_id=='ACTVTY_ARTCL_DISLIKE'}">
+										<a class="stat-item glyphicon glyphicon-chevron-down artcl_hits_negetive" clickable="false">
+											${arctl_obj.artcl_hits_negetive}
+										</a>
+									</c:when>
+									<c:otherwise>
+										<a class="stat-item glyphicon glyphicon-chevron-down artcl_hits_negetive_none" clickable="true">
+											${arctl_obj.artcl_hits_negetive}
+										</a>
+									</c:otherwise>
+								</c:choose>
+							</div>
 					</div>
 				</div>
+			</div>
 			<!-- #######################|Article Title|############################################################################ -->
 			
+			
+			
+			
+			
 			<!-- #######################|Article Content|########################################################################## -->	
-				<div class="panel-body" id="articleDataDwnload">${arctl_obj.artcle_Data}</div>
+				<!-- <div class="panel panel-default"> -->
+					<div class="panel-body" id="articleDataDwnload">${arctl_obj.artcl_Data}</div>
+				<!-- </div> -->
 			<!-- #######################|Article Content|########################################################################## -->
+	
+	
+	
+	
 	
 	
 	
@@ -139,10 +205,10 @@
 												</p>
 												<form method="post">
 													<div class="stats">
-														<a href="#" class="cmtlike btn btn-default stat-item"
+														<a href="#" class="cmt_hits_positive btn btn-default stat-item"
 															cmtid="${genericdata.classData.cmnt_id}"> <i
 															class="fa fa-thumbs-up icon"></i>${genericdata.classData.cmt_likes}</a> 
-														<a href="#" class="cmtdislike btn btn-default stat-item"
+														<a href="#" class="cmt_hits_negetive btn btn-default stat-item"
 															cmtid="$nt.cmnt_id}"> <i class="fa fa-thumbs-down icon"></i>${genericdata.classData.cmt_dislikes}</a>
 														<a href="#" class="btn btn-default stat-item" cmtid="${genericdata.classData.cmnt_id}">
 															 <span class="glyphicon glyphicon-comment" />

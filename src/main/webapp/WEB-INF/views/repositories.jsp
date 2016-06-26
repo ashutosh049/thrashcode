@@ -72,7 +72,7 @@
 											<c:forEach items="${catMap.value}" var="article">
 												<li>
 													<a href='renderArticleFile?arctl_id=${article.artcl_id}' class='articleReadAnchor'>
-														${article.artcle_title}
+														${article.artcl_title}
 													</a>
 												</li>
 											</c:forEach>
@@ -119,7 +119,7 @@
 															<strong>
 																<div style='float: left; padding-top: 12px; margin-right: -15px;'>
 																	<c:choose>
-																		<c:when test="${article.artcle_type=='tips_tricks'}">
+																		<c:when test="${article.artcl_type=='tips_tricks'}">
 																			<img src='resources/images/tip.png' style='height: 25px;'>
 																		</c:when>
 																		<c:otherwise>
@@ -130,7 +130,7 @@
 																<div class='[ animbrand ]'>
 																	<a class='[ navbar-brand ][ animate ]'
 																		href='renderArticleFile?arctl_id=${article.artcl_id}'
-																		id='artcle_list_title'>${article.artcle_title}</a>
+																		id='artcl_list_title'>${article.artcl_title}</a>
 																</div>
 															</strong>
 														</h4>
@@ -138,20 +138,20 @@
 												</div>
 												<div class='row post-content'>
 													<div class='col-md-9'>
-														<p>${article.artcle_brf_desc}</p>
+														<p>${article.artcl_brf_desc}</p>
 														<p></p>
 													</div>
 												</div>
 												<div class='row'>
 													<div class='col-md-12 post-header-line'>
 														<span class='glyphicon glyphicon-user'></span> by <a
-															href='#' class='artcle_list_anchors'>${article.artcl_owner_name}</a>
+															href='#' class='artcl_list_anchors'>${article.artcl_owner_name}</a>
 														&nbsp;&nbsp; <span class='glyphicon glyphicon-comment'>
-														</span>${article.artcle_lastUpdateDate} &nbsp;&nbsp; <span
+														</span>${article.artcl_lastUpdateDate} &nbsp;&nbsp; <span
 															class='glyphicon glyphicon-comment'></span><a href='#'
-															class='artcle_list_anchors'> 3 Comments</a> <span
+															class='artcl_list_anchors'> 3 Comments</a> <span
 															class='glyphicon glyphicon-eye-open'> </span> <font
-															class='artcle_list_anchors'>${article.artcle_hits} Views</font>
+															class='artcl_list_anchors'>${article.artcl_hits} Views</font>
 														&nbsp;&nbsp; <span class='glyphicon glyphicon-tags'>
 														</span>Tags : ${article.artcl_tags}
 														<div style='float: right;'>

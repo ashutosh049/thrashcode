@@ -5,11 +5,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,11 +37,14 @@ import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import daoImpl.ArticleCategoriesDaoImpl;
 import daoImpl.ArticleDaoImpl;
 import daoImpl.CommentDaoImpl;
+import daoImpl.UserActivityDaoImpl;
 import daoImpl.UserDaoImpl;
 import models.Article;
+import models.ArticleRenderList;
 import models.Comment;
 import models.GenericWithImage;
 import models.User;
+import models.UserActivity;
 import models.UserParameters;
 import util.CommonUtil;
 import util.ThrashConstants;
@@ -52,27 +55,18 @@ public class ArticleController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 
-	@Autowired
-	ArticleDaoImpl articleDao;
-	@Autowired
-	CommentDaoImpl commentDao;
-	@Autowired
-	UserDaoImpl userDao;
-	@Autowired
-	User user;
-	@Autowired
-	Comment comment;
-	@Autowired
-	CommonUtil commonUtil;
-	@Autowired
-	Article article;
-	// @Autowired ValueKeys valueKeys;
-	@Autowired
-	UserParameters userParameters;
-	@Autowired
-	GenericWithImage genericWithImage;
-	@Autowired
-	ArticleCategoriesDaoImpl articleCategoriesDao;
+	@Autowired ArticleDaoImpl articleDao;
+	@Autowired CommentDaoImpl commentDao;
+	@Autowired UserDaoImpl userDao;
+	@Autowired User user;
+	@Autowired Comment comment;
+	@Autowired CommonUtil commonUtil;
+	@Autowired Article article;
+	@Autowired UserParameters userParameters;
+	@Autowired GenericWithImage genericWithImage;
+	@Autowired ArticleCategoriesDaoImpl articleCategoriesDao;
+	@Autowired UserActivity userActivity;
+	@Autowired UserActivityDaoImpl userActivityDaoImpl;
 	
 	@Value("${poscode_root_dir}") private String poscode_root_dir;
 	@Value("${article_root_dir}") private String article_root_dir;
@@ -114,29 +108,26 @@ public class ArticleController {
 	}
 
 	@RequestMapping(value = "/fetchArticle")
-	public @ResponseBody List<Article> fetchArticle(Model model, RedirectAttributes redirectAttributes,
-			HttpServletRequest request, HttpServletResponse response, @RequestParam("tags") String tags)
-					throws Exception {
-		logger.error("\n\n----" + "@mthd : fetchArticle()" + "\n" + "@RequestParam :tags =" + tags + "\n");
+	public @ResponseBody List<Article> fetchArticle(Model model, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response, @RequestParam("tags") String tags) throws Exception {
 		articleList = new LinkedList<Article>();
 		articleList = articleDao.getArticlesByTag(tags);
 		for (Article article : articleList) {
-			String artcle_brf_desc = article.getArtcle_brf_desc();
+			String artcl_brf_desc = article.getArtcl_brf_desc();
 			if (tags != "") {
-				int index = artcle_brf_desc.toUpperCase().indexOf(tags.toUpperCase());
+				int index = artcl_brf_desc.toUpperCase().indexOf(tags.toUpperCase());
 				String before = "";
 				String highlighted = "";
 				String after = "";
 				while (index >= 0) {
 					int len = tags.length();
-					before = artcle_brf_desc.substring(0, index);
+					before = artcl_brf_desc.substring(0, index);
 					highlighted = "<span class='label label-success'>" + tags + "</span>";
-					after = artcle_brf_desc.substring(index + len);
-					artcle_brf_desc = before + highlighted + after;
-					index = artcle_brf_desc.toUpperCase().indexOf(tags.toUpperCase(), index + highlighted.length());
+					after = artcl_brf_desc.substring(index + len);
+					artcl_brf_desc = before + highlighted + after;
+					index = artcl_brf_desc.toUpperCase().indexOf(tags.toUpperCase(), index + highlighted.length());
 				}
 			}
-			article.setArtcle_brf_desc(artcle_brf_desc);
+			article.setArtcl_brf_desc(artcl_brf_desc);
 		}
 		return articleList;
 	}
@@ -153,22 +144,22 @@ public class ArticleController {
 		articleList = new LinkedList<Article>();
 		articleList = articleDao.getArticlesByTag(tags);
 		for (Article article : articleList) {
-			String artcle_brf_desc = article.getArtcle_brf_desc();
+			String artcl_brf_desc = article.getArtcl_brf_desc();
 			if (tags != "") {
-				int index = artcle_brf_desc.toUpperCase().indexOf(tags.toUpperCase());
+				int index = artcl_brf_desc.toUpperCase().indexOf(tags.toUpperCase());
 				String before = "";
 				String highlighted = "";
 				String after = "";
 				while (index >= 0) {
 					int len = tags.length();
-					before = artcle_brf_desc.substring(0, index);
+					before = artcl_brf_desc.substring(0, index);
 					highlighted = "<span class='label label-success'>" + tags + "</span>";
-					after = artcle_brf_desc.substring(index + len);
-					artcle_brf_desc = before + highlighted + after;
-					index = artcle_brf_desc.toUpperCase().indexOf(tags.toUpperCase(), index + highlighted.length());
+					after = artcl_brf_desc.substring(index + len);
+					artcl_brf_desc = before + highlighted + after;
+					index = artcl_brf_desc.toUpperCase().indexOf(tags.toUpperCase(), index + highlighted.length());
 				}
 			}
-			article.setArtcle_brf_desc(artcle_brf_desc);
+			article.setArtcl_brf_desc(artcl_brf_desc);
 		}
 
 		view.addObject("articleList", articleList);
@@ -199,7 +190,7 @@ public class ArticleController {
 		articleList = new LinkedList<Article>();
 		articleList = articleDao.getArticlesByTag(argTags);
 		if (articleList != null && articleList.size() > 0) {
-			genericWithImageList = commonUtil.bundleArticleToGenericWithImg(articleList);
+			genericWithImageList = commonUtil.bundleObjectToGenericWithImg(articleList);
 			for (GenericWithImage genericList : genericWithImageList) {
 				CommonsMultipartFile commonsMultipartFile = userDao
 						.getUserImgData(((Comment) genericList.getClassData()).getUser_id());
@@ -218,9 +209,6 @@ public class ArticleController {
 			HttpServletRequest request, HttpServletResponse response, @RequestParam("arctl_id") String arctl_id)
 					throws Exception {
 
-		logger.error(
-				"\n\n----" + "@mthd : renderArticleFile()" + "\n" + "@RequestParam : arctl_id =" + arctl_id + "\n");
-
 		ModelAndView modelAndView = new ModelAndView("articlesRead");
 		modelAndView.addObject("peak_index", null);
 		modelAndView.addObject("peak_article_read", "articlesRead");
@@ -228,11 +216,14 @@ public class ArticleController {
 		modelAndView.addObject("peak_notification", null);
 		modelAndView.addObject("peak_user_profile", null);
 
-		Article article = articleDao.getArticle(arctl_id);
+		Article article = articleDao.getArticlesByArticleId(arctl_id);
 		Article article_obj = null;
-		if (commonUtil.ifDirExists(article.getArtcle_filePath())) {
-			article_obj = commonUtil.getAtclData(articleDao.getArticle(arctl_id));
+		if (commonUtil.ifDirExists(article.getArtcl_filePath())) {
+			article_obj = commonUtil.getAtclData(articleDao.getArticlesByArticleId(arctl_id));
 			modelAndView.addObject("arctl_obj", article_obj);
+			modelAndView.addObject("arctl_mod_date", new SimpleDateFormat("MMMM dd yyyy").format(article_obj.getArtcl_mod_date()));	
+			
+			
 			List<Comment> commentsList = commentDao.getComments(arctl_id);
 			commentsList = commonUtil.getCmtData(commentsList);
 			if (commentsList != null) {
@@ -249,8 +240,7 @@ public class ArticleController {
 				modelAndView.addObject("genericWithImageList", genericWithImageList);
 			}
 		} else {
-			// error in article file..render error messgae
-			return new ModelAndView("redirect:articleNotFound?argArticleTitle=" + article.getArtcle_title());
+			return new ModelAndView("redirect:articleNotFound?argArticleTitle=" + article.getArtcl_title());
 		}
 
 		// about the author
@@ -288,9 +278,12 @@ public class ArticleController {
 		modelAndView.addObject("articleNotificationsList", userParameters.getArticleNotificationsList());
 		modelAndView.addObject("articleNotificationsListCount", userParameters.getArticleNotificationsListCount());
 
-		// @SuppressWarnings("static-access")
-		// String testData = (String) getScopedValue(valueKeys.TEST);
-
+		//------ UserActivity
+		
+		List<UserActivity> userActivityList = userActivityDaoImpl.getUserActivitiesByArticleIdByUserId(arctl_id, user.getUser_id());
+		userActivity = ((userActivityList!=null && userActivityList.size()>0) ? userActivityList.get(0) : null);
+		modelAndView.addObject("userActivity", userActivity);
+		
 		articleDao.updateArticleHits(arctl_id);
 
 		return modelAndView;
@@ -357,8 +350,7 @@ public class ArticleController {
 		modelAndView.addObject("loggedInUserEmail", user.getUser_email());
 		if (user.getUser_id() != null) {
 			userParameters.setArticleNotificationsList(userDao.getUserArticleNotifications(user.getUser_id()));
-			userParameters
-					.setArticleNotificationsListCount(userDao.getUserArticleNotifications(user.getUser_id()).size());
+			userParameters.setArticleNotificationsListCount(userDao.getUserArticleNotifications(user.getUser_id()).size());
 			MultipartFile multipartFile = user.getUser_img();
 			InputStream stream = multipartFile.getInputStream();
 			byte[] bytes = IOUtils.toByteArray(stream);
@@ -455,37 +447,93 @@ public class ArticleController {
 
 	@RequestMapping(value = "/publishArticleByForm", method = RequestMethod.POST)
 	public ModelAndView publishArticleByForm(@ModelAttribute("articleModal") Article articleModal) throws IOException {
-
 		int artcl_count = articleDao.getArticlesByTag("").size() + 1;
 		String artcl_id = "artcl_" + artcl_count;
 		article.setArtcl_id(artcl_id);
-		article.setArtcl_date(new Date());
-		article.setArtcl_owner_name(user.getUser_fname());
-		String artcl_filePath = poscode_root_dir+article_root_dir+artcl_id+"/";
-		String artcl_fileName = artcl_id + ".txt";
-
+		article.setArtcl_cat_id(articleModal.getArtcl_cat_id());
+		article.setArtcl_owner_id(user.getUser_id());
+		article.setArtcl_status(ThrashConstants.ARTCL_STATUS_ACTIVE);
+		article.setArtcl_title(articleModal.getArtcl_title());
+		article.setArtcl_brf_desc(articleModal.getArtcl_brf_desc());
+		article.setArtcl_create_date(new Date());
+		article.setArtcl_mod_date(new Date());
 		List<String> artcl_tags = new LinkedList<String>();
-
 		for (String tag : articleModal.getArtcl_tags()) {
 			artcl_tags.add(tag);
 		}
-
-		article.setArtcl_owner_id(user.getUser_id());
-		article.setArtcle_title(articleModal.getArtcle_title());
-		article.setArtcle_type(articleModal.getArtcle_type());
-		article.setArtcle_brf_desc(articleModal.getArtcle_brf_desc());
 		article.setArtcl_tags(artcl_tags);
-		article.setArtcle_filePath(artcl_filePath + "/" + artcl_fileName);
-		article.setArtcl_cat_id("artcl_cat_id_test" + new Random().nextInt());
-
+		article.setArtcl_Data(null);
+		String artcl_filePath = poscode_root_dir+article_root_dir+artcl_id+"/";
+		String artcl_fileName = artcl_id + ".txt";
+		article.setArtcl_filePath(artcl_filePath + "/" + artcl_fileName);
+		article.setArtcl_type(articleModal.getArtcl_type());
+		article.setArtcl_visits(0); 
+		article.setArtcl_hits_positive(0); 
+		article.setArtcl_hits_negetive(0);
 		if (articleDao.publishArticle(article) > 0) {
-			commonUtil.createDataFile(artcl_id, artcl_id, articleModal.getArtcle_Data(), artcl_filePath,
-					artcl_fileName);
-			return new ModelAndView("redirect:index");
-		} else {
-			return new ModelAndView("articleNotFound");
+			if(commonUtil.createDataFile(artcl_id, artcl_id, articleModal.getArtcl_Data(), artcl_filePath,artcl_fileName)){
+				return new ModelAndView("redirect:index");
+			}
 		}
-
+		return new ModelAndView("articleNotFound");
 	}
 
+	@RequestMapping(value = "/renderArticleList")
+	public @ResponseBody List<ArticleRenderList> renderArticleList(Model model, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response, @RequestParam("tags") String tags) throws Exception {
+		List<ArticleRenderList> renderList = new LinkedList<ArticleRenderList>();
+		articleList = new LinkedList<Article>();
+		articleList = articleDao.getArticlesByTag(tags);
+		for (Article article : articleList) {
+			ArticleRenderList render = new ArticleRenderList();
+			article = CommonUtil.highlightArticleSearchString(article, tags);
+			render = CommonUtil.adaptArticleToRenderList(article,
+					userDao.getUserById(article.getArtcl_owner_id()).getUser_fname(),
+					commentDao.getComments(article.getArtcl_id()).size());
+			renderList.add(render);
+		}
+		return renderList;
+	}
+	
+	@RequestMapping(value = "/hitArticle", method = RequestMethod.POST)
+	public @ResponseBody String hitArticle(@RequestParam("arctl_id") String argArctl_id,@RequestParam("hitType") String argHitType) throws Exception {
+			List<UserActivity> userActivityList = userActivityDaoImpl.getUserActivitiesByArticleIdByUserId(argArctl_id, user.getUser_id());
+			UserActivity newUserActivity = new UserActivity();
+			newUserActivity.setUser_id(user.getUser_id());
+			newUserActivity.setArtcl_id(argArctl_id);
+			newUserActivity.setActvty_cat(ThrashConstants.ACTVTY_CAT_ARTCL);
+			newUserActivity.setUser_actvty_create_date(new Date());
+			
+			Date user_actvty_mod_date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String date1 = sdf.format(user_actvty_mod_date);
+			Date d1 = sdf.parse(date1);
+			
+			newUserActivity.setUser_actvty_mod_date(new Date());
+			if(argHitType.equals(ThrashConstants.ARTCL_HIT_POSITIVE)){
+		       newUserActivity.setUser_actvty_id(user.getUser_id()+"_"+ThrashConstants.USER_ACTVTY_ID_ARTCL_LIKE);
+		       newUserActivity.setActvty_id(ThrashConstants.ACTVTY_ID_ARTCL_LIKE);
+		       newUserActivity.setUser_actvty_desc(user.getUser_id()+" "+ThrashConstants.USER_ACTVTY_DESC_ARTCL_LIKE+" "+argArctl_id);
+			}else if(argHitType.equals(ThrashConstants.ARTCL_HIT_NEGETIVE)){
+		       newUserActivity.setUser_actvty_id(user.getUser_id()+"_"+ThrashConstants.USER_ACTVTY_ID_ARTCL_DISLIKE);
+		       newUserActivity.setActvty_id(ThrashConstants.ACTVTY_ID_ARTCL_DISLIKE);
+		       newUserActivity.setUser_actvty_desc(user.getUser_id()+" "+ThrashConstants.USER_ACTVTY_DESC_ARTCL_DISLIKE+" "+argArctl_id);
+			}
+			
+			if(userActivityList!=null && userActivityList.size()>0){
+				if(userActivityDaoImpl.updateUserActivity(newUserActivity)>0){
+					if(articleDao.hitArticleUpdate(argArctl_id, argHitType)){
+						return ThrashConstants.STATUS_SUCCESS;
+					}
+				}
+			}else{
+				if(userActivityDaoImpl.createUserActivity(newUserActivity)>0){
+					if(articleDao.hitArticle(argArctl_id, argHitType)){
+						return ThrashConstants.STATUS_SUCCESS;
+					}
+				}
+			}
+		return ThrashConstants.STATUS_ERROR;
+	}
+	
+	
 }

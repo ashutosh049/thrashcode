@@ -83,9 +83,23 @@ public class UserDaoImpl implements UserDao {
 
 	public List<ArticleNotifications> getUserArticleNotifications(String argUserId) {
 
-		String sql = "SELECT arctl_id, cmnt_id, user_id, cmnt_by_user_fname, cmnt_by_user_lname, cmt_date, read_status, notification_type,notification_data"
-				+ " FROM article_notifications anot " + " INNER JOIN articles a "
-				+ " ON anot.arctl_id = a.artcl_id AND a.artcl_owner_id = ?";
+		String sql = "SELECT "
+						+ "arctl_id,"
+						+ "cmnt_id,"
+						+ "user_id,"
+						+ "cmnt_by_user_fname,"
+						+ "cmnt_by_user_lname,"
+						+ "cmt_date,"
+						+ "read_status,"
+						+ "notification_type,"
+						+ "notification_data "
+					+ "FROM "
+						+ "article_notifications artclnotify " 
+					+ "INNER JOIN "
+						+ "ARTICLES artcl "
+					+ "ON "
+						+ "artclnotify.arctl_id = artcl.artcl_id "
+					+ "AND artcl.artcl_owner_id = ?";
 
 		List<ArticleNotifications> notificationsList = commonUtil.getJdbcTemplate().query(sql,
 				new Object[] { argUserId }, new RowMapper<ArticleNotifications>() {

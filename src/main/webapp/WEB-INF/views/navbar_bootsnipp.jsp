@@ -94,7 +94,8 @@
 												<li><a href="notifications">
 														<div>
 															<strong>${notification.cmnt_by_user_fname} ${notification.cmnt_by_user_lname}</strong>
-														    <span class="pull-right text-muted" style="margin-top: -22px;"> <em>${notification.cmt_date}</em>
+														    <span class="pull-right text-muted" style="margin-top: -22px;"> 
+														    	<em>${notification.cmt_date}</em>
 															</span>
 														</div>
 														<div>${notification.notification_data}...</div>

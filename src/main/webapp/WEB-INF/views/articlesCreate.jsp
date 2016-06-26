@@ -67,15 +67,28 @@
 
 							<div class="form-group">
 								<div class="input-group">
+									<span class="input-group-addon">Article Category:</span> 
+									<form:select class="form-control" id="publishArticle_artclcategory" path="artcl_cat_id">
+										<option value=CAT_EVRYTHING>All</option>
+										<option value="CAT_ARTICLE">Article</option>
+										<option value="CAT_CODE_PICKS">Code Picks</option>
+										<option value="CAT_TECHBLOG">Technical Blog</option>
+										<option value="CAT_TIPS_TRICKS">Tips & Tricks</option>
+									</form:select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="input-group">
 									<span class="input-group-addon">Article Title:</span> 
-									<form:input type="text" id="publishArticle_title" class="form-control" path="artcle_title"/>
+									<form:input type="text" id="publishArticle_title" class="form-control" path="artcl_title"/>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon">Article Type:</span> 
-									<form:select class="form-control" id="publishArticle_artcltypes" path="artcle_type">
+									<form:select class="form-control" id="publishArticle_artcltypes" path="artcl_type">
 										<option value="article">Article</option>
 										<option value="tips_tricks">tips & triks</option>
 									</form:select>
@@ -92,13 +105,13 @@
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon">Description:</span>
-									<form:textarea id="publishArticle_desc" class="form-control" path="artcle_brf_desc"></form:textarea>
+									<form:textarea id="publishArticle_desc" class="form-control" path="artcl_brf_desc"></form:textarea>
 								</div>
 							</div>
 						</div>
 					</div>
 					<!-- ......CKEditor.................. -->
-					<form:textarea id="publishArticle_data" name="publishArticle_data" path="artcle_Data"></form:textarea>
+					<form:textarea id="publishArticle_data" name="publishArticle_data" path="artcl_Data"></form:textarea>
 					<ckeditor:replace replace="publishArticle_data" basePath="resources/ckeditor/" />
 					<br />
 					<button id="publishArticleForm_Btn" type="submit" class="btn btn-success">Publish</button>

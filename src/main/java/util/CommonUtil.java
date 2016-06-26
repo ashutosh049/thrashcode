@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import models.Article;
+import models.ArticleRenderList;
 import models.Comment;
 import models.GenericWithImage;
 
@@ -164,17 +165,36 @@ public class CommonUtil{
 		return genericDataList;
 	}
 	
-	public List<GenericWithImage> bundleArticleToGenericWithImg(List<Article> argArticleList){
-		logger.info("\n\n----"+ "@mthd : bundleCommentToGenericWithImg()"+"\n"+ "@arg  : argCommentList :"+argArticleList+"\n");
+	/*public List<GenericWithImage> bundleArticleToGenericWithImg(List<Article> argArticleList){
 		List<GenericWithImage> genericDataList = new LinkedList<GenericWithImage>();
-		
 		if(argArticleList.size() > 0){
 			for (Article  article: argArticleList) {
-//				genericDataList.add(new GenericWithImage(article, null,null,null, getTimeAgo(article.getArtcle_lastUpdateDate(), new Date())));
-				genericDataList.add(new GenericWithImage(article, null,null,null, toRelative(article.getArtcle_lastUpdateDate(), new Date())));
-				
+				genericDataList.add(new GenericWithImage(article, null,null,null, toRelative(article.getArtcl_mod_date(), new Date())));
 			}
 		}
+		return genericDataList;
+	}*/
+	
+	
+	public List<GenericWithImage> bundleObjectToGenericWithImg(List<?> argObjectList){
+		List<GenericWithImage> genericDataList = new LinkedList<GenericWithImage>();
+		if(argObjectList!=null && argObjectList.size() > 0){
+			for (Object object : argObjectList) {
+				if(object instanceof ArticleRenderList){
+					ArticleRenderList article = (ArticleRenderList)object;
+					GenericWithImage genericWithImage= new GenericWithImage(article, null,null,null, 
+							toRelative(article.getArticle().getArtcl_mod_date(), new Date()));
+					genericDataList.add(genericWithImage);
+				}
+				if(object instanceof Article){
+					Article article = (Article)object;
+					GenericWithImage genericWithImage= new GenericWithImage(article, null,null,null, 
+							toRelative(article.getArtcl_mod_date(), new Date()));
+					genericDataList.add(genericWithImage);
+				}
+			}
+		}
+		
 		return genericDataList;
 	}
 
@@ -188,12 +208,12 @@ public class CommonUtil{
 
 				String sCurrentLine;
 
-				br = new BufferedReader(new FileReader(argArticle.getArtcle_filePath()));
+				br = new BufferedReader(new FileReader(argArticle.getArtcl_filePath()));
 
 				while ((sCurrentLine = br.readLine()) != null) {
 					data += sCurrentLine;
 				}
-				argArticle.setArtcle_Data(data);
+				argArticle.setArtcl_Data(data);
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
@@ -350,5 +370,32 @@ public class CommonUtil{
         assert start.after(end);
         return toRelative(end.getTime() - start.getTime(), level);
     }
+    
+    public static Article highlightArticleSearchString(Article argArticle, String argSearchString){
+    	String artcl_brf_desc = argArticle.getArtcl_brf_desc();
+		if (argSearchString != "") {
+			int index = artcl_brf_desc.toUpperCase().indexOf(argSearchString.toUpperCase());
+			String before = "";
+			String highlighted = "";
+			String after = "";
+			while (index >= 0) {
+				int len = argSearchString.length();
+				before = artcl_brf_desc.substring(0, index);
+				highlighted = "<span class='label label-success'>" + argSearchString + "</span>";
+				after = artcl_brf_desc.substring(index + len);
+				artcl_brf_desc = before + highlighted + after;
+				index = artcl_brf_desc.toUpperCase().indexOf(argSearchString.toUpperCase(), index + highlighted.length());
+			}
+		}
+		argArticle.setArtcl_brf_desc(artcl_brf_desc);
+    	return argArticle;
+    }
 
+	public static ArticleRenderList adaptArticleToRenderList(Article argArticle, String argAuthorNAme, int argCommentCount) {
+		ArticleRenderList render = new ArticleRenderList();
+		render.setArticle(argArticle);
+		render.setAuthor(argAuthorNAme);
+		render.setCommentCount(argCommentCount);
+		return render;
+	} 
 }

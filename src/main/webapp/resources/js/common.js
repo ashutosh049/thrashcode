@@ -21,7 +21,7 @@ $(document).ready(function() {
 		$.ajax({
 			method:'POST',
 			async : false,
-			url : "handleAppLogin",
+			url : "handleAppLogin", 
 			data :"user_id="+user_id+"&user_pwd="+user_pwd,
 			success : function(response) {
 				if (response != null && response=='success') {
@@ -46,5 +46,4 @@ $(document).ready(function() {
 
 	
 	});
-	
 });

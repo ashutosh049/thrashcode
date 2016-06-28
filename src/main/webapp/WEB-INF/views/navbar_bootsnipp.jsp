@@ -65,7 +65,7 @@
 				
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="[ collapse navbar-collapse ]" id="bs-example-navbar-collapse-1">
-					<ul class="[ nav navbar-nav navbar-right ]">
+					<ul class="[ nav navbar-nav navbar-right index-nav-links]">
 						<li class="[ visible-xs ]">
 							<form action="http://bootsnipp.com/search" method="GET" role="search">
 								<div class="[ input-group ]">
@@ -87,18 +87,19 @@
 									<span class="notificationBadge">${articleNotificationsListCount}</span>
 								</a>
 								<ul class="dropdown-menu dropdown-messages cstm_dropdown-messages">
-									<c:forEach items="${articleNotificationsList}" var="notification"
-										varStatus="notify_count">
+									<c:forEach items="${articleNotificationsList}" var="notification" varStatus="notify_count">
 										<c:choose>
 											<c:when test="${notify_count.index<4}">
 												<li><a href="notifications">
 														<div>
-															<strong>${notification.cmnt_by_user_fname} ${notification.cmnt_by_user_lname}</strong>
+<!-- 															<strong> -->
+																${notification.cmnt_by_user_fname} ${notification.cmnt_by_user_lname}
+<!-- 															</strong> -->
 														    <span class="pull-right text-muted" style="margin-top: -22px;"> 
 														    	<em>${notification.cmt_date}</em>
 															</span>
 														</div>
-														<div>${notification.notification_data}...</div>
+														<div><%-- ${notification.notification_data}... --%></div>
 												</a></li>
 											</c:when>
 										</c:choose>
@@ -141,7 +142,7 @@
 												padding-left: 0px;
 												padding-right: 0px;
 												padding-top: 0px;
-												padding-bottom: 2px;" 
+												padding-bottom: 0px;" 
 										alt="#" 
 										class="avatar img-circle img-thumbnail" /> 
 									<i class="[ fa fa-caret-down ]"></i>
@@ -168,9 +169,10 @@
 			</div>
 			<div class="[ bootsnipp-search animate ]">
 				<div class="[ container ]">
-					<form method="GET" role="search" id="fetchBootArticlesForm">
+					<form method="GET" role="search" id="fetchBootArticlesForm" action="fetchArticleWithTag">
 						<div class="[ input-group ]">
-							<input id="fetchBootArticlesWithTags" type="text" class="[ form-control ]" placeholder="Search for articles, tips & tricks...hit enter">
+							<input type="hidden" value="${fetch_tags}" id="fetch_tags"/>
+							<input id="fetchBootArticlesWithTags" name="fetchBootArticlesWithTags" type="text" class="[ form-control ]" placeholder="Search for articles, tips & tricks...hit enter">
 							<span class="[ input-group-btn ]">
 								<button class="[ btn btn-danger ]" type="reset"><span class="[ glyphicon glyphicon-remove ]"></span></button>
 							</span>

@@ -5,6 +5,7 @@ package daoImpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -154,13 +155,13 @@ public class UserActivityDaoImpl implements UserActivityDao {
 	public int updateUserActivity(UserActivity argUserActivity) {
 		String query = "update user_activity "
 				+ "SET "
-				+ "user_actvty_id = '"+argUserActivity.getUser_actvty_id()+"', "
-				+ "actvty_id = '"+argUserActivity.getActvty_id()+"', "
-				+ "actvty_cat = '"+argUserActivity.getActvty_cat()+"', "
-				+ "user_actvty_desc = '"+argUserActivity.getUser_actvty_desc()+"', "
-				+ "user_actvty_mod_date = '"+argUserActivity.getUser_actvty_mod_date()+"' "
-				+ "WHERE user_id = ? AND "
-				+ "artcl_id = ?";
+				+ "user_actvty_id ='"+argUserActivity.getUser_actvty_id()+"', "
+				+ "actvty_id='"+argUserActivity.getActvty_id()+"', "
+				+ "actvty_cat='"+argUserActivity.getActvty_cat()+"', "
+				+ "user_actvty_desc='"+argUserActivity.getUser_actvty_desc()+"', "
+				+ "user_actvty_mod_date='"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(argUserActivity.getUser_actvty_mod_date())+"' "
+				+ " WHERE user_id=? AND "
+				+ "artcl_id=?";
 		int i = commonUtil.getJdbcTemplate().update(query, argUserActivity.getUser_id(), argUserActivity.getArtcl_id());
 		return i;
 	}

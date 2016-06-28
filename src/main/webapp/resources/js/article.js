@@ -1,5 +1,14 @@
 $(document).ready(function() {
 	
+	$('.artcl_attributes_div a').hover(
+			function(){
+						$(this).removeClass('glyphicon');
+						$(this).removeClass('glyphicon-download-alt');
+						$(this).addClass("label label-warning");
+						$(this).css('color','#fff');
+					}
+			);
+	
 	/*--------- add comment part...-----------*/
 	$("[data-toggle=tooltip]").tooltip();
 	/*--------- edit comment div--------------*/
@@ -177,7 +186,7 @@ $(document).ready(function() {
 	
 	
 /* ##################################| fetchBootArticlesForm |######################################################################## */
-	$('#fetchBootArticlesForm').submit(function(){
+	$('#fetchBootArticlesForm_not_using').submit(function(){
 		$("#bootarticleDisplayArea").html("");// clear previous articles and the area for the new searched one to be appended
 		$.ajax({
 			type:'GET',
@@ -301,6 +310,9 @@ $(document).ready(function() {
 		});
 	 }
 	});
+	
+	
+	
 
 	
 });

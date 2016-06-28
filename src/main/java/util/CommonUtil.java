@@ -8,9 +8,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -19,8 +18,11 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -228,9 +230,6 @@ public class CommonUtil{
 	}
 
 	public void copyFileTemprarily() {
-//		String tmpFileSrcPath = "C:/poscode_REPO/poscode_REPO_ARCTL/poscode_REPO_ARCTL_CONTS/artcl_001/Locks.html";
-//		String tmpFileDescPath = "E:/APPUSECASES/RedEyeBloodBank/src/main/webapp/WEB-INF/views/tmp.jsp";
-		
 		logger.info("\n\n----"
 				+ "@mthd : copyFileTemprarily()"+"\n");
 		
@@ -398,4 +397,33 @@ public class CommonUtil{
 		render.setCommentCount(argCommentCount);
 		return render;
 	} 
+	
+	public String ListToString(List<String> argList){
+		String toString = "";
+		if(argList!=null && argList.size()>0){
+			for (String item : argList) {
+				toString += item+",";
+			}
+			toString = toString.substring(0,toString.lastIndexOf(','));
+		}
+		
+		return toString;
+	}
+	
+	@JsonIgnore
+	public FileItem getFileItemFromInputStream(InputStream inputStream) throws IOException {
+		int availableBytes = inputStream.available();
+		File outFile = new File("c:/myTemp/myTemp2");
+		FileItem fileItem = new DiskFileItem("fileUpload", "image/png", false, "sometext.png", availableBytes, outFile);
+		OutputStream outputStream = fileItem.getOutputStream();
+		int read = 0;
+		byte[] bytes = new byte[1024];
+		while ((read = inputStream.read(bytes)) != -1) {
+			outputStream.write(bytes, 0, read);
+		}
+		inputStream.close();
+		outputStream.flush();
+		outputStream.close();
+		return fileItem;
+	}
 }

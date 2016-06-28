@@ -502,12 +502,6 @@ public class ArticleController {
 			newUserActivity.setArtcl_id(argArctl_id);
 			newUserActivity.setActvty_cat(ThrashConstants.ACTVTY_CAT_ARTCL);
 			newUserActivity.setUser_actvty_create_date(new Date());
-			
-			Date user_actvty_mod_date = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String date1 = sdf.format(user_actvty_mod_date);
-			Date d1 = sdf.parse(date1);
-			
 			newUserActivity.setUser_actvty_mod_date(new Date());
 			if(argHitType.equals(ThrashConstants.ARTCL_HIT_POSITIVE)){
 		       newUserActivity.setUser_actvty_id(user.getUser_id()+"_"+ThrashConstants.USER_ACTVTY_ID_ARTCL_LIKE);
@@ -535,5 +529,13 @@ public class ArticleController {
 		return ThrashConstants.STATUS_ERROR;
 	}
 	
+	@RequestMapping(value = "/fetchArticleWithTag")
+//	public ModelAndView fetchArticleWithTag(Model model, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView fetchArticleWithTag(Model model, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response, @RequestParam("fetchBootArticlesWithTags") String fetchBootArticlesWithTags) throws Exception {
+		ModelAndView modelAndView = new ModelAndView("redirect:index");
+		String fetch_tags= (String)request.getAttribute("fetchBootArticlesWithTags");
+		redirectAttributes.addFlashAttribute(ThrashConstants.FETCH_TAGS, fetchBootArticlesWithTags);
+		return modelAndView;
+	}
 	
 }

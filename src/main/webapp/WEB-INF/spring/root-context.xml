@@ -68,6 +68,14 @@
 	<bean id="userParameters" class="models.UserParameters" scope="customscope"/>
 	<bean id="articleNotifications" class="models.ArticleNotifications" scope="customscope"/>
 	<bean id="userActivity" class="models.UserActivity" scope="customscope"/>
+	<bean id="userCredentials" class="models.UserCredentials" scope="customscope"/>
+	<bean id="userPersonal" class="models.UserPersonal" scope="customscope"/>
+	<bean id="userProfessional" class="models.UserProfessional" scope="customscope"/>
+	<bean id="userSocialAccount" class="models.UserSocialAccount" scope="customscope"/>
+	<bean id="userThrashAccount" class="models.UserThrashAccount" scope="customscope"/>
+	
+	
+	
 	
 	<!-- Configure the multipart resolver -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

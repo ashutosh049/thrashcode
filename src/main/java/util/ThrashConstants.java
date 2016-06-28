@@ -2,6 +2,8 @@ package util;
 
 public class ThrashConstants {
 
+	public static String FETCH_TAGS = "fetch_tags";
+	
 	public static String ARTICLE_ID = "artcl_id";
 	public static String ARTICLE_DATE = "artcl_create_date";
 	public static String ARTICLE_OWNER_NAME = "artcl_owner_name";

@@ -43,10 +43,17 @@
 .artcl_attributes_div{
 	color : rgba(98, 91, 102, 0.62);
 	float :left;
+    margin-left: 55px;
 }
 .artcl_attributes_div a{
 	color: rgba(98, 91, 102, 0.62);
-	text-decoration: none;	
+	text-decoration: none;
+	margin-left: 471px;	
+}
+.artcl_attributes_div a:hover{
+	color: rgba(98, 91, 102, 0.62);
+	text-decoration: none;
+	margin-left: 471px;	
 }
 .label-warning {
 	color : #fff;

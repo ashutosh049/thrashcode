@@ -1,17 +1,15 @@
 $(document).ready(function() {
 	$('#spinner').css('display','none');
-	appendArticles("");
-	$('#fetchBootArticlesForm').submit(function(){
-		
-		var findtag = $('#fetchBootArticlesWithTags').val(); 
-			$("#carousel-example-generic").html("");
-			$("#bootarticleDisplayArea").html("<br><br><br><br>");
-			appendArticles(findtag);
-			return false;
-	});
+	
+	
+
+	if($('#fetch_tags').val()!=null){
+//		$("#carousel-example-generic").html("");
+		appendArticles($('#fetch_tags').val());
+	}
+	
 	
 	$('#bootarticleDisplayArea').on('click','a.includeInFetch',function(e){
-		
 		if($('div').hasClass( "bootsnipp-search" )){
 			$('div').addClass('open');
 		}
@@ -23,6 +21,7 @@ $(document).ready(function() {
 });
 
 function appendArticles(findWithTag) {
+//	$('body').fadeTo( "fast", 0.2);
 	$('#spinner').css('display','block');
 	$.ajax({
 		type:'GET',
@@ -32,6 +31,7 @@ function appendArticles(findWithTag) {
 		dataType : 'json',
 		url  : "renderArticleList?tags="+findWithTag,
 		success : function(data) {
+			
 				$.each(data, function(key,renderList) { 
 					
 					var articleList = renderList.article;
@@ -148,6 +148,7 @@ function appendArticles(findWithTag) {
 			alert("xhr : "+xhr+"status : "+status+"error : "+error+" errror fetching user uploaded data");
 		}
 	}).done(function() {
-		$('#spinner').stop().fadeOut('slow');
+			$('#spinner').stop().fadeOut( "slow");
+//			$('body').fadeOut( "fast", 1);
 	});
 }

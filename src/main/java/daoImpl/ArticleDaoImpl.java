@@ -180,7 +180,7 @@ public class ArticleDaoImpl implements ArticleDao {
 			       argArticle.getArtcl_brf_desc(),
 			       argArticle.getArtcl_create_date(),
 			       argArticle.getArtcl_mod_date(),
-			       ListToString(argArticle.getArtcl_tags()),
+			       commonUtil.ListToString(argArticle.getArtcl_tags()),
 			       null,
 			       argArticle.getArtcl_filePath(),
 			       argArticle.getArtcl_type(),
@@ -245,19 +245,6 @@ public class ArticleDaoImpl implements ArticleDao {
 				+ "WHERE artcl_id = ? ", argArtclId);
 		}
 	
-	public String ListToString(List<String> argList){
-		String toString = "";
-		if(argList!=null && argList.size()>0){
-			for (String item : argList) {
-				toString += item+",";
-			}
-			toString = toString.substring(0,toString.lastIndexOf(','));
-		}
-		
-		return toString;
-	}
-
-
 
 	@Override
 	public List<Article> getArticlesByCategory(String argArtclcatId) {
@@ -402,7 +389,7 @@ public class ArticleDaoImpl implements ArticleDao {
 		}else if(argHitType.equals(ThrashConstants.ARTCL_HIT_NEGETIVE)){
 			String query ="UPDATE ARTICLES "
 					+"SET "
-							+ "artcl_hits_positive = artcl_hits_positive-1 "
+							+ "artcl_hits_positive = artcl_hits_positive-1, "
 							+ "artcl_hits_negetive = artcl_hits_negetive+1 "
 					+"WHERE "
 							+ "artcl_status='"+ThrashConstants.ARTCL_STATUS_ACTIVE+"' AND "

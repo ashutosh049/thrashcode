@@ -6,12 +6,15 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 import daoImpl.ArticleCategoriesDaoImpl;
 import daoImpl.ArticleDaoImpl;
@@ -32,7 +38,7 @@ import models.GenericWithImage;
 import models.User;
 import models.UserParameters;
 import util.CommonUtil;
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import util.ThrashConstants;
 
 
 //@Scope("session")
@@ -50,7 +56,7 @@ public class HomeController{
 	@Autowired CommentDaoImpl commentDao;
 	
 	@RequestMapping(value = { "/", "/index"}, method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, Model model) throws IOException {
+	public ModelAndView home(Locale locale, Model model, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		ModelAndView modelAndView = new ModelAndView("index");
 		
 		if (user.getUser_id() != null) {
@@ -102,6 +108,18 @@ public class HomeController{
 		modelAndView.addObject("articleNotificationsList", userParameters.getArticleNotificationsList());
 		modelAndView.addObject("articleNotificationsListCount", userParameters.getArticleNotificationsListCount());
 		modelAndView.addObject("articleListWithOwnerImg",articleListWithOwnerImg);
+		
+		Map<String, Object> mpdelMap = model.asMap();
+		if(mpdelMap!=null && mpdelMap.size()>0){
+			for (String modelKey : mpdelMap.keySet()) {
+				if(modelKey.equals(ThrashConstants.FETCH_TAGS)){
+					String modelValue = (String)mpdelMap.get(modelKey);
+					modelAndView.addObject(ThrashConstants.FETCH_TAGS,modelValue);
+				}
+			}
+		}
+		
+		
 		return modelAndView;
 	}
 

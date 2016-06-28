@@ -61,7 +61,7 @@ public class UserDaoImpl implements UserDao {
 										user.setUser_email(rs.getString(5));
 										if (rs.getBlob(6).length() > 0) {
 											try {
-												user.setUser_img(new CommonsMultipartFile(getFileItemFromInputStream(
+												user.setUser_img(new CommonsMultipartFile(commonUtil.getFileItemFromInputStream(
 														rs.getBlob(6).getBinaryStream(1, rs.getBlob(6).length()))));
 											} catch (IOException e) {
 												e.printStackTrace();
@@ -156,23 +156,6 @@ public class UserDaoImpl implements UserDao {
 	 * Object[] { argArticleId }, String.class); return userName; }
 	 */
 
-	@JsonIgnore
-	private FileItem getFileItemFromInputStream(InputStream inputStream) throws IOException {
-		int availableBytes = inputStream.available();
-		File outFile = new File("c:/myTemp/myTemp2");
-		FileItem fileItem = new DiskFileItem("fileUpload", "image/png", false, "sometext.png", availableBytes, outFile);
-		OutputStream outputStream = fileItem.getOutputStream();
-		int read = 0;
-		byte[] bytes = new byte[1024];
-		while ((read = inputStream.read(bytes)) != -1) {
-			outputStream.write(bytes, 0, read);
-		}
-		inputStream.close();
-		outputStream.flush();
-		outputStream.close();
-		return fileItem;
-	}
-
 	@Override
 	public CommonsMultipartFile getUserImgData(String argUserId) {
 		// byte[] rs = commonUtil.getJdbcTemplate().queryForObject("SELECT
@@ -186,8 +169,11 @@ public class UserDaoImpl implements UserDao {
 					public CommonsMultipartFile mapRow(ResultSet rs, int rowNum) throws SQLException {
 						CommonsMultipartFile user = null;
 						try {
-							user = new CommonsMultipartFile(getFileItemFromInputStream(
-									rs.getBlob(1).getBinaryStream(1, rs.getBlob(1).length())));
+							user = new CommonsMultipartFile(
+									commonUtil.getFileItemFromInputStream(
+																		  rs.getBlob(1).getBinaryStream(1, rs.getBlob(1).length())
+																		  )
+									                       );
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
